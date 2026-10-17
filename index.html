@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Q Streaming LLC — Press Play on Practical Tools</title>
+<meta name="description" content="Q Streaming LLC is a New Auburn, Wisconsin company building plain-English media, free sizing calculators, books, and open practical software.">
+<meta property="og:title" content="Q Streaming LLC"><meta property="og:description" content="Media, calculators, books & software — built in New Auburn, WI.">
+<meta property="og:url" content="https://jpanasuk-netizen.github.io/q-streaming/"><meta property="og:image" content="https://jpanasuk-netizen.github.io/q-streaming/assets/q-logo-cropped.jpg">
+<link rel="icon" href="assets/q-logo.png">
+<style>
+:root{--bg:#020817;--bg2:#04122b;--panel:#071a38;--line:#12325e;--text:#edf8ff;--muted:#a9c4dc;--teal:#17e6d2;--cyan:#00bfff;--blue:#075bd6;--radius:28px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(1000px 600px at 85% -5%,rgba(0,191,255,.28),transparent 60%),radial-gradient(900px 700px at 0 30%,rgba(23,230,210,.13),transparent 55%),linear-gradient(180deg,var(--bg),var(--bg2) 55%,#020613);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(120,200,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(120,200,255,.045) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,black,transparent 78%);pointer-events:none}
+a{color:inherit}.wrap{width:min(92vw,2560px);margin:auto;position:relative}
+nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(18px);background:rgba(2,8,23,.72);border-bottom:1px solid rgba(80,180,255,.16)}
+.navin{display:flex;align-items:center;justify-content:space-between;padding:14px 0;gap:20px}.brand{display:flex;gap:12px;align-items:center;text-decoration:none;font-weight:900;letter-spacing:.14em}.brand img{width:44px;height:44px;object-fit:contain;background:#fff;border-radius:12px;padding:4px}
+.links{display:flex;gap:28px;flex-wrap:wrap}.links a{text-decoration:none;color:var(--muted);font-weight:700;font-size:.95rem}.links a:hover{color:var(--teal)}
+.hero{min-height:88vh;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:5vw;padding:7vh 0 6vh}
+.eyebrow{color:var(--teal);font-weight:900;letter-spacing:.28em;text-transform:uppercase;font-size:.85rem}
+h1{font-size:clamp(4.2rem,8.5vw,12rem);line-height:.82;margin:20px 0;letter-spacing:-.07em}h1 span{background:linear-gradient(90deg,#fff,#63e9ff,var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:clamp(1.25rem,1.6vw,2rem);line-height:1.45;color:#cfe7f8;max-width:950px}.sub{color:var(--muted);line-height:1.7;max-width:850px;font-size:1.08rem}
+.cta{display:flex;gap:16px;flex-wrap:wrap;margin-top:34px}.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 24px;border-radius:999px;text-decoration:none;font-weight:900;border:1px solid rgba(80,220,255,.35)}.btn.primary{background:linear-gradient(90deg,var(--blue),var(--cyan),var(--teal));color:#00121f;box-shadow:0 18px 50px rgba(0,191,255,.35)}.btn.ghost{background:rgba(255,255,255,.04)}
+.qstage{display:grid;place-items:center;position:relative}.qhalo{position:absolute;width:min(38vw,720px);aspect-ratio:1;border-radius:50%;background:conic-gradient(from 40deg,transparent,rgba(23,230,210,.35),transparent,rgba(0,191,255,.35),transparent);filter:blur(18px);animation:spin 16s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.qcard{position:relative;background:linear-gradient(160deg,rgba(255,255,255,.98),rgba(210,245,255,.92));border-radius:42px;padding:5%;box-shadow:0 40px 120px rgba(0,180,255,.35);transform:rotate(2deg)}.qcard img{width:min(34vw,640px);max-width:100%;display:block}
+.play{position:absolute;right:7%;bottom:7%;background:#02142b;color:#fff;padding:12px 18px;border-radius:999px;font-weight:900;letter-spacing:.12em}
+section{padding:90px 0}.kicker{color:var(--teal);letter-spacing:.26em;font-weight:900;text-transform:uppercase;font-size:.8rem}h2{font-size:clamp(2.4rem,4.5vw,5.5rem);line-height:.95;margin:14px 0 18px;letter-spacing:-.04em}.intro{color:var(--muted);font-size:1.15rem;line-height:1.7;max-width:1000px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:36px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.card{background:linear-gradient(180deg,rgba(12,38,78,.92),rgba(4,17,40,.94));border:1px solid rgba(90,200,255,.18);border-radius:var(--radius);padding:30px;min-height:230px;display:flex;flex-direction:column;gap:14px;transition:.25s}.card:hover{transform:translateY(-8px);border-color:rgba(23,230,210,.65);box-shadow:0 24px 70px rgba(0,150,255,.22)}
+.card h3{margin:0;font-size:1.55rem}.card p{color:var(--muted);line-height:1.65;margin:0;flex:1}.tag{color:var(--teal);font-size:.78rem;font-weight:900;letter-spacing:.18em;text-transform:uppercase}.go{font-weight:900;color:#6ff5ff;text-decoration:none}
+.feature{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:stretch}.bigcard{border-radius:36px;padding:42px;background:linear-gradient(135deg,#073064,#02142b 60%);border:1px solid rgba(90,200,255,.25)}.bigcard p{color:#c6e2f4;line-height:1.75}
+.marquee{overflow:hidden;border-block:1px solid var(--line);padding:20px 0;color:#8fdfff;font-weight:900;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}.marquee div{display:inline-block;animation:m 28s linear infinite}@keyframes m{to{transform:translateX(-50%)}}
+.contact{background:linear-gradient(90deg,#063a75,#02142b);border:1px solid rgba(90,200,255,.3);border-radius:38px;padding:48px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+footer{padding:42px 0 60px;color:var(--muted);border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(24px);transition:.8s}.reveal.on{opacity:1;transform:none}
+@media(max-width:1200px){.grid{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:repeat(2,1fr)}.hero,.feature{grid-template-columns:1fr}.qcard img{width:min(70vw,520px)}}
+@media(max-width:680px){.links{display:none}.grid,.grid3{grid-template-columns:1fr}.contact{grid-template-columns:1fr}.hero{min-height:auto}h1{font-size:4.4rem}}
+@media(min-width:2600px){body{font-size:20px}.grid{grid-template-columns:repeat(4,1fr)}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Q Streaming LLC","url":"https://jpanasuk-netizen.github.io/q-streaming/","email":"jpanasuk@gmail.com","address":{"@type":"PostalAddress","addressLocality":"New Auburn","addressRegion":"WI","addressCountry":"US"}}</script>
+</head><body>
+<nav><div class="wrap navin"><a class="brand" href="#top"><img src="assets/q-logo.png" alt="Q Streaming Q logo"> Q STREAMING LLC</a><div class="links"><a href="#media">Media</a><a href="#calculators">Calculators</a><a href="#services">CONNECT</a><a href="#books">Books</a><a href="#software">Software & AI</a><a href="#contact">Contact</a></div></div></nav>
+
+<main id="top" class="wrap">
+<header class="hero">
+<div class="reveal on"><div class="eyebrow">Q Streaming LLC • New Auburn, Wisconsin</div>
+<h1>PRESS<br><span>PLAY.</span></h1>
+<p class="lede">Plain-English media, free practical calculators, books, and software — built from a desk in New Auburn and made to be used in the real world.</p>
+<p class="sub">Q Streaming LLC is the home of The Machine Room, the free Sizer calculator family, CONNECT, the SIZE IT RIGHT! book series by Jasper Black, Termy-X, Tabby Tavern, and more. No hype. Just tools, stories, and systems people can actually use.</p>
+<div class="cta"><a class="btn primary" href="#calculators">▶ Try the free calculators</a><a class="btn ghost" href="#media">Watch The Machine Room →</a><a class="btn ghost" href="https://jpanasuk-netizen.github.io/house-hub/" target="_blank" rel="noopener">Every link in one place →</a></div></div>
+<div class="qstage reveal on"><div class="qhalo"></div><div class="qcard"><img src="assets/q-logo.png" alt="Q Streaming LLC logo — Q with play-button tail"><div class="play">▶ STREAM • SIZE • BUILD</div></div></div>
+</header>
+
+<div class="marquee"><div>THE MACHINE ROOM ✦ FREE CALCULATORS ✦ SIZE IT RIGHT! ✦ CONNECT ✦ TERMY-X ✦ TABBY TAVERN ✦ THE MACHINE ROOM ✦ FREE CALCULATORS ✦ SIZE IT RIGHT! ✦ CONNECT ✦ TERMY-X ✦ TABBY TAVERN ✦&nbsp;</div></div>
+
+<section id="media" class="reveal"><div class="kicker">Media</div><h2>The Machine Room</h2><p class="intro">Plain-English breakdowns of finance, AI, and legal news — full videos and Shorts, made for people who want the story without the spin.</p>
+<div class="grid3">
+<article class="card"><span class="tag">YouTube</span><h3>The Machine Room on YouTube</h3><p>Watch full breakdowns and Shorts on finance, AI, and the news behind the news.</p><a class="go" href="https://www.youtube.com/@themachineroomtoday" target="_blank" rel="noopener">youtube.com/@themachineroomtoday →</a></article>
+<article class="card"><span class="tag">Instagram</span><h3>The Machine Room on Instagram</h3><p>Follow clips, updates, and behind-the-scenes posts from the channel.</p><a class="go" href="https://www.instagram.com/the_machine_room_now/" target="_blank" rel="noopener">instagram.com/the_machine_room_now →</a></article>
+<article class="card"><span class="tag">Start here</span><h3>New here?</h3><p>Start with YouTube, then try a calculator on a real project — a generator, battery bank, coop, trailer, tank, or HVAC load.</p><a class="go" href="#calculators">See the calculators ↓</a></article>
+</div></section>
+
+<section id="calculators" class="reveal"><div class="kicker">Free tools • No sign-up pitch</div><h2>Eight free calculators.<br>Size it right the first time.</h2><p class="intro">Free in your browser. Built for cabins, shops, garages, coops, trailers, and tanks — plug in your real gear and get a real answer before you spend money.</p>
+<div class="grid">
+<article class="card"><span class="tag">Power</span><h3>GeneratorSizer</h3><p>Size a generator for the loads you actually need to start and run.</p><a class="go" href="https://generator-sizer.com/" target="_blank" rel="noopener">generator-sizer.com →</a></article>
+<article class="card"><span class="tag">Solar</span><h3>SolarSizer</h3><p>Match panels and solar input to your real daily use and sun.</p><a class="go" href="https://solar-sizer.com/" target="_blank" rel="noopener">solar-sizer.com →</a></article>
+<article class="card"><span class="tag">Batteries</span><h3>Battery Bank Sizer</h3><p>Build a battery bank with reserve, depth-of-discharge, and runtime in mind.</p><a class="go" href="https://battery-bank-sizer.com/" target="_blank" rel="noopener">battery-bank-sizer.com →</a></article>
+<article class="card"><span class="tag">Shop</span><h3>Welding Calculator</h3><p>Dial in welding numbers before you strike an arc.</p><a class="go" href="https://welding-calculator.com/" target="_blank" rel="noopener">welding-calculator.com →</a></article>
+<article class="card"><span class="tag">Comfort</span><h3>HVAC Load Calc</h3><p>Estimate heating and cooling load so equipment is sized, not guessed.</p><a class="go" href="https://hvac-load-calc.com/" target="_blank" rel="noopener">hvac-load-calc.com →</a></article>
+<article class="card"><span class="tag">Homestead</span><h3>ChickenCoopCalc</h3><p>Plan coop space and basics for a healthy flock.</p><a class="go" href="https://chickencoopcalc.com/" target="_blank" rel="noopener">chickencoopcalc.com →</a></article>
+<article class="card"><span class="tag">Towing</span><h3>TrailerTowCalc</h3><p>Check trailer and tow numbers before you hook up and roll.</p><a class="go" href="https://trailertowcalc.com/" target="_blank" rel="noopener">trailertowcalc.com →</a></article>
+<article class="card"><span class="tag">Aquarium</span><h3>AquariumStocking</h3><p>Stock a tank with balance in mind — your first tank, done right.</p><a class="go" href="https://aquarium-stocking.com/" target="_blank" rel="noopener">aquarium-stocking.com →</a></article>
+</div></section>
+
+<section id="services" class="reveal"><div class="feature">
+<div class="bigcard"><div class="kicker">Service</div><h2>CONNECT</h2><p>A setup service that wires email, calendar, and accounts up to AI agents that draft for you. You keep the final say on anything that sends, spends, or goes public.</p><div class="cta"><a class="btn primary" href="https://jpanasuk-netizen.github.io/the-closer/CONNECT_YOUR_LIFE.html" target="_blank" rel="noopener">Explore CONNECT →</a></div></div>
+<div class="bigcard"><div class="kicker">Watch</div><h2>Jasper’s Trade Bot</h2><p>A small Kalshi trading desk built in public, with a watch page anyone can look at. Building in public means the work is visible — not promised.</p><div class="cta"><a class="btn ghost" href="https://kalshi.solar-sizer.com" target="_blank" rel="noopener">Open the Kalshi watch page →</a></div></div>
+</div></section>
+
+<section id="books" class="reveal"><div class="kicker">Books • By Jasper Black</div><h2>SIZE IT RIGHT!</h2><p class="intro">Short, illustrated how-to guides that go with the calculators — written under the pen name Jasper Black. <strong>Launching on Amazon.</strong> Watch The Machine Room and House Hub for live links when each title goes on sale.</p><div class="cta"><a class="btn ghost" href="https://jpanasuk-netizen.github.io/house-hub/" target="_blank" rel="noopener">Check House Hub for launch links →</a></div></section>
+
+<section id="software" class="reveal"><div class="kicker">Software & AI</div><h2>Built in the open.</h2><div class="grid3">
+<article class="card"><span class="tag">Open source</span><h3>Termy-X</h3><p>A free, open-source terminal app with X built in. It never posts anything until you say yes.</p><a class="go" href="https://github.com/jpanasuk-netizen/termy-x" target="_blank" rel="noopener">github.com/jpanasuk-netizen/termy-x →</a></article>
+<article class="card"><span class="tag">Self-hosted AI</span><h3>Tabby Tavern</h3><p>A self-hosted AI stack on Hugging Face — chat, character chat, private search, and automation tools in one open-source package.</p><a class="go" href="https://huggingface.co/jpanasuk/tabby-tavern-stack" target="_blank" rel="noopener">huggingface.co/jpanasuk/tabby-tavern-stack →</a></article>
+<article class="card"><span class="tag">Hub</span><h3>House Hub</h3><p>Every link in one place — calculators, media, software, books, and projects from Q Streaming LLC.</p><a class="go" href="https://jpanasuk-netizen.github.io/house-hub/" target="_blank" rel="noopener">jpanasuk-netizen.github.io/house-hub →</a></article>
+</div></section>
+
+<section id="contact" class="reveal"><div class="contact"><div><div class="kicker">Contact</div><h2 style="margin-bottom:8px">Let’s build something useful.</h2><p class="intro" style="margin:0">Q Streaming LLC • New Auburn, Wisconsin<br>For CONNECT, media, calculators, or books — email is the front door.</p></div><a class="btn primary" href="mailto:jpanasuk@gmail.com">✉ jpanasuk@gmail.com</a></div></section>
+</main>
+<footer class="wrap"><span>© 2026 Q Streaming LLC • New Auburn, WI</span><span>Media • Calculators • Books • Software</span><a href="#top">Back to top ↑</a></footer>
+<script>const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.12});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));</script>
+</body></html>
