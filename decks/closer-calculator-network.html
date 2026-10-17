@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="auto-designer-preview-device" content="slide">
+<title>The Closer Â· Calculator Network â€” Pitch Deck</title>
+<!--
+  Route: html-ppt-pitch-deck skeleton (od.mode=deck), cloned from example.html.
+  Visual system derived from the client's own "The Closer" campaign page
+  (jpanasuk-netizen.github.io/the-closer): dark navy + cyan/purple/gold,
+  Bebas Neue display / IBM Plex Sans body / IBM Plex Mono labels.
+  used_design_system = null (skeleton skin, re-tokenised to the client's live brand).
+  font-stack: Bebas Neue + IBM Plex Sans + IBM Plex Mono (client brand, see the-closer/index.html).
+  Assumptions logged: fundraise amount / revenue figures left as labelled placeholders, not invented.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================= TOKENS (The Closer brand) ================= */
+:root{
+  --bg:#050814; --bg-2:#0b1220; --surface:#10192c; --surface-2:#0d1526;
+  --text-1:#e8eef7; --text-2:#aab8cc; --text-3:#7487a0;
+  --border:rgba(148,163,184,.16); --border-strong:rgba(34,211,238,.36);
+  --accent:#22d3ee; --accent-2:#c084fc; --accent-3:#fb923c;
+  --good:#34d399; --gold:#fbbf24; --bad:#f87171;
+  --font-display:'Bebas Neue','Archivo Black',Impact,sans-serif;
+  --font-sans:'IBM Plex Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --radius:16px; --radius-sm:10px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#000;color:var(--text-1);
+  font-family:var(--font-sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ================= STAGE (fixed 1920x1080, scale-to-fit) ================= */
+.stage{
+  position:fixed;top:0;left:0;width:1920px;height:1080px;overflow:hidden;
+  background:
+    radial-gradient(1200px 700px at 78% -10%, rgba(34,211,238,.10), transparent 60%),
+    radial-gradient(900px 600px at 6% 110%, rgba(192,132,252,.10), transparent 60%),
+    var(--bg);
+  transform-origin:top left;
+}
+.slide-stack{position:absolute;inset:0}
+
+/* ================= SLIDE SYSTEM ================= */
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:128px 112px 104px;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);
+  transform:translateX(28px);
+  font-size:24px;line-height:1.5;
+}
+.slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:2}
+.slide.is-prev{transform:translateX(-28px)}
+
+/* ================= CHROME ================= */
+.chrome{position:absolute;top:0;left:0;right:0;height:84px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 112px;z-index:10;pointer-events:none;
+  font-family:var(--font-mono);font-size:17px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-3)}
+.chrome .brand b{color:var(--accent);font-weight:600}
+.footbar{position:absolute;bottom:0;left:0;right:0;height:84px;display:flex;align-items:center;
+  gap:24px;padding:0 112px;z-index:10;font-family:var(--font-mono);font-size:17px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);pointer-events:none}
+.footbar .rule{flex:1;height:1px;background:var(--border)}
+.footbar .pageno{color:var(--text-2)}
+.progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(148,163,184,.14);z-index:11}
+.progress > span{display:block;height:100%;width:0;background:var(--accent);transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+/* ================= TYPE ================= */
+.eyebrow{font-family:var(--font-mono);font-size:18px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin:0}
+h1,h2,h3,h4{margin:0;font-family:var(--font-display);font-weight:400;letter-spacing:.035em;line-height:1}
+.display{font-size:118px;line-height:.92}
+.display-sm{font-size:92px;line-height:.94}
+h2{font-size:72px;line-height:.98;margin:0}
+h3{font-size:40px;letter-spacing:.03em}
+h4{font-size:26px;font-family:var(--font-sans);font-weight:600;letter-spacing:0}.card h3{font-family:var(--font-sans);font-size:26px;font-weight:600;letter-spacing:0;line-height:1.2;margin:0}
+.mono{font-family:var(--font-mono)}
+.lede{font-size:30px;line-height:1.5;color:var(--text-2);font-weight:400;max-width:60ch;margin:0}
+.dim{color:var(--text-2)}
+.dim3{color:var(--text-3)}
+.accent{color:var(--accent)}
+.mt-s{margin-top:14px}.mt-m{margin-top:26px}.mt-l{margin-top:44px}
+.mb-s{margin-bottom:14px}.mb-m{margin-bottom:26px}
+.stack > * + *{margin-top:16px}
+
+/* ================= LAYOUT ================= */
+.grid{display:grid;gap:22px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:1.15fr .85fr;gap:56px}
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
+.center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+
+/* ================= CARD ================= */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px 30px;position:relative}
+.card-soft{background:var(--surface-2)}
+.card-top{border-top:3px solid var(--accent)}
+.card p{margin:8px 0 0;font-size:24px;line-height:1.45;color:var(--text-2)}
+.card .tag{font-family:var(--font-mono);font-size:19px;letter-spacing:.06em;color:var(--text-3)}
+.card .tag.accent{color:var(--accent)}
+
+/* ================= LISTS (mono index) ================= */
+ol.idx{list-style:none;margin:0;padding:0;counter-reset:i}
+ol.idx > li{display:grid;grid-template-columns:56px 1fr;gap:18px;padding:16px 0;
+  border-top:1px solid var(--border);align-items:start}
+ol.idx > li:first-child{border-top:none}
+ol.idx > li .n{font-family:var(--font-mono);font-size:22px;color:var(--accent);padding-top:4px}
+ol.idx > li p{margin:0;font-size:25px;line-height:1.44;color:var(--text-2)}
+ol.idx > li p b{color:var(--text-1);font-weight:600}
+
+/* ================= STAT ================= */
+.mega{font-family:var(--font-display);font-size:300px;line-height:.86;letter-spacing:.02em;color:var(--accent)}
+.mega .slash{color:var(--text-3)}
+.stat-sub{font-family:var(--font-mono);font-size:22px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+
+/* ================= IMAGE PANEL ================= */
+.photo{position:relative;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);
+  aspect-ratio:4/3;background:var(--surface)}
+.photo img{width:100%;height:100%;object-fit:cover;filter:saturate(.9) contrast(1.02)}
+.photo .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 24px;
+  background:linear-gradient(180deg,transparent,rgba(5,8,20,.92));font-size:22px;color:var(--text-2)}
+.cover-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:56px;align-items:center;height:100%}
+.photo.tall{aspect-ratio:auto;height:100%;max-height:772px}
+
+/* ================= MATRIX ================= */
+.matrix{display:grid;grid-template-columns:auto 1fr;gap:14px 26px;align-items:center}
+.matrix .m{font-family:var(--font-mono);font-size:21px;letter-spacing:.06em;color:var(--gold);text-transform:uppercase}
+.matrix .v{font-size:24px;color:var(--text-2);border-bottom:1px solid var(--border);padding:10px 0}
+.matrix .v b{color:var(--text-1);font-weight:600}
+
+/* ================= SECTION DIVIDER ================= */
+.sec{display:grid;grid-template-columns:auto 1fr;gap:52px;align-items:baseline}
+.sec .num{font-family:var(--font-display);font-size:230px;line-height:.8;color:var(--accent)}
+.sec .lab{font-family:var(--font-mono);font-size:20px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-3);margin-bottom:18px}
+.sec h2{font-size:84px}
+
+/* ================= NOTES / OVERLAY ================= */
+.notes{display:none!important}
+.notes-overlay{position:absolute;left:112px;right:112px;bottom:104px;max-height:360px;overflow:auto;
+  background:rgba(16,25,44,.96);border:1px solid var(--border-strong);border-radius:var(--radius);
+  padding:26px 30px;font-size:22px;line-height:1.5;color:var(--text-2);z-index:30;display:none}
+.notes-overlay.open{display:block}
+.notes-overlay b{display:block;font-family:var(--font-mono);font-size:15px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.hint{position:absolute;right:112px;bottom:118px;font-family:var(--font-mono);font-size:15px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);z-index:9}
+
+/* ================= PRINT ================= */
+@page{size:1920px 1080px landscape;margin:0}
+@media print{
+  html,body{background:#fff}
+  .stage{position:static;width:auto;height:auto;transform:none!important;background:var(--bg)}
+  .slide{position:relative;inset:auto;opacity:1!important;transform:none!important;
+    height:1080px;width:1920px;page-break-after:always;overflow:hidden}
+  .chrome,.footbar,.progress,.notes-overlay,.hint{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+
+  <!-- fixed chrome -->
+  <div class="chrome">
+    <div class="brand">JEREMY PANASUK <b>&nbsp;| THE CLOSER</b></div>
+    <div id="secLabel">Operator pitch &middot; 2026</div>
+  </div>
+
+  <div class="slide-stack" id="stack">
+
+    <!-- ============ 1 Â· COVER ============ -->
+    <section class="slide is-active" data-section="Operator pitch Â· 2026" data-label="Cover">
+      <div class="cover-grid">
+        <div>
+          <p class="eyebrow">Operator pitch &middot; The Closer</p>
+          <h1 class="display mt-m">Every calculator.<br>Every market.</h1>
+          <p class="lede mt-m">A network of free, honest trade calculators &mdash; one operating loop, one build factory, and the receipts from twenty-two years of closing on data platforms that were already on fire.</p>
+          <div class="mt-l" style="display:flex;gap:14px;flex-wrap:wrap">
+            <span class="mono" style="font-size:19px;color:var(--text-3);border:1px solid var(--border);border-radius:999px;padding:8px 18px">8 calculators live</span>
+            <span class="mono" style="font-size:19px;color:var(--text-3);border:1px solid var(--border);border-radius:999px;padding:8px 18px">6 markets</span>
+            <span class="mono" style="font-size:19px;color:var(--text-3);border:1px solid var(--border);border-radius:999px;padding:8px 18px">Free to use</span>
+          </div>
+        </div>
+        <div class="photo tall">
+          <img src="https://jpanasuk-netizen.github.io/the-closer/assets/datacenter.jpg" alt="Datacenter â€” the closing motion, pointed at the public web">
+          <div class="cap">The same motion that recovered burning platforms, now pointed at the public web.</div>
+        </div>
+      </div>
+      <aside class="notes">Open cold and blunt: "I spent twenty-two years getting parachuted into Fortune-100 data platforms that were already on fire. This is what happens when I point that same motion at the public web." Then say the one line that frames the whole deck: the asset here is not software &mdash; it is trust, earned one honest answer at a time. Set up the next three minutes: first how we got here, then what is already live, then where we take it.</aside>
+    </section>
+
+    <!-- ============ 2 Â· SECTION 01 ============ -->
+    <section class="slide" data-section="01 Â· How we got here" data-label="Section 01">
+      <div class="sec">
+        <div class="num">01</div>
+        <div>
+          <div class="lab">Chapter 01</div>
+          <h2>How we<br>got here.</h2>
+        </div>
+      </div>
+      <aside class="notes">Use this page as a hard reset before the story. "Before the calculators, there was a twenty-two-year habit: read the evidence, find the real bottleneck, leave the team a platform they can still run on Tuesday. That habit is the product." Keep it short &mdash; about fifteen seconds &mdash; then move straight into the record. The whole point of chapter one is to establish that this is not a first-time builder with a clever idea; it is an operator repeating a loop that has already worked at scale.</aside>
+    </section>
+
+    <!-- ============ 3 Â· STORY (two-col) ============ -->
+    <section class="slide" data-section="01 Â· How we got here" data-label="The record">
+      <h2 class="mt-s">I closed platforms that were already on fire.</h2>
+      <div class="split mt-m">
+        <ol class="idx" style="--n:1">
+          <li><span class="n">01</span><p><b>22 years</b> of Fortune-100 data integration. Informatica parachuted me into accounts mid-incident, not mid-pitch.</p></li>
+          <li><span class="n">02</span><p><b>20 troubled accounts entered. 19 recovered.</b> One Milwaukee insurer&rsquo;s three-month pile-up closed in two days &mdash; a single buried DB2 driver.</p></li>
+          <li><span class="n">03</span><p><b>Dawn Foods warehouse load: 8 hours to under 1</b> &mdash; and it stayed there, because the team actually used it.</p></li>
+          <li><span class="n">04</span><p>The operating line I still run on: <b>customer satisfaction is worthless; customer loyalty is priceless.</b></p></li>
+        </ol>
+        <div class="photo">
+          <img src="https://jpanasuk-netizen.github.io/the-closer/assets/hero-closer.jpg" alt="The Closer campaign hero â€” cinematic datacenter push-in">
+          <div class="cap">The campaign page that carries this story &mdash; the-closer, live on GitHub Pages.</div>
+        </div>
+      </div>
+      <aside class="notes">Tell the record as evidence, not as a resume. "Twenty troubled accounts walked in. Nineteen walked out fixed. The Milwaukee insurer had a three-month queue and it was one database driver nobody had found &mdash; two days." Then land the line that ties it to this business: "Customer satisfaction is worthless, customer loyalty is priceless. A calculator that answers one question honestly is the smallest possible unit of loyalty." Point at the photo and note it is the exact campaign page, not a mock.</aside>
+    </section>
+
+    <!-- ============ 4 Â· PLAYBOOK LOOP ============ -->
+    <section class="slide" data-section="01 Â· How we got here" data-label="The loop">
+      <p class="eyebrow">The operating loop</p>
+      <h2 class="mt-s">Measure. Isolate.<br>Document. Coach.</h2>
+      <div class="grid g4 mt-l">
+        <div class="card card-top"><span class="tag accent">01</span><h3 class="mt-s">Measure</h3><p>Name the number before you start. Baseline, goal, bottleneck &mdash; thread statistics before folklore.</p></div>
+        <div class="card card-top"><span class="tag accent">02</span><h3 class="mt-s">Isolate</h3><p>Prove the boundary. One driver, one partitioned mystery &mdash; find it before adding another box.</p></div>
+        <div class="card card-top"><span class="tag accent">03</span><h3 class="mt-s">Document</h3><p>Owner and date on the cover. If the next engineer cannot run it, it is a diary, not a standard.</p></div>
+        <div class="card card-top"><span class="tag accent">04</span><h3 class="mt-s">Coach</h3><p>Knowledge transfer is a deliverable. The runbook they still run on Tuesday is the loyalty.</p></div>
+      </div>
+      <p class="lede mt-l">The same four moves that recovered burning platforms now run on the public web.</p>
+      <aside class="notes">This is the hinge of the whole story, so slow down. "Every engagement, the same four moves: measure, isolate, document, coach. It did not matter whether the platform was an Oracle RAC grid or a warehouse load &mdash; same loop." Then make the turn explicit: "When I pointed that loop at trade questions, the calculators fell out of it. You measure the query, isolate the real answer, document the math, and coach the buyer &mdash; then the tool keeps coaching after you leave." That is the bridge into the bet.</aside>
+    </section>
+
+    <!-- ============ 5 Â· THE BET / PROBLEM ============ -->
+    <section class="slide" data-section="01 Â· How we got here" data-label="The bet">
+      <p class="eyebrow">The bet</p>
+      <h2 class="mt-s">The trades ask questions.<br>They do not want software.</h2>
+      <div class="grid g3 mt-l">
+        <div class="card"><span class="tag">SEARCH-FIRST</span><h3 class="mt-s">One question, right before they spend</h3><p>A homeowner sizing a generator, a welder picking amperage, a van-lifer sizing solar &mdash; they search the exact number minutes before money moves.</p></div>
+        <div class="card"><span class="tag">ANSWER-STARVED</span><h3 class="mt-s">What they find is ad-choked or wrong</h3><p>Single-purpose tools, no visible math, no honesty about the assumptions &mdash; nothing that earns a return visit.</p></div>
+        <div class="card card-top"><span class="tag accent">THE WEDGE</span><h3 class="mt-s">Trust is the asset</h3><p>Answer the exact question, honestly, for free &mdash; and you own the one moment that sits between the search and the purchase.</p></div>
+      </div>
+      <aside class="notes">Frame the opportunity as demand, not product. "These are not people looking for an app. They are people with one precise question, asked at the exact moment before they buy. Generator watts. Amp settings. Towing capacity." Then the problem: "What they find is usually junk &mdash; ad stitched, single-purpose, and quietly wrong about its own assumptions." Close on the wedge: "Whoever answers that one question honestly owns the moment before the purchase. That is the whole strategy. It is a trust play, not a features play."</aside>
+    </section>
+
+    <!-- ============ 6 Â· THE FLEET ============ -->
+    <section class="slide" data-section="02 Â· What is live" data-label="The fleet">
+      <p class="eyebrow">What is already live</p>
+      <h2 class="mt-s">Eight calculators. Six markets.</h2>
+      <div class="grid g4 mt-m">
+        <div class="card card-soft"><span class="tag accent">generator-sizer.com</span><h3 class="mt-s">Generator sizing</h3><p>Running vs starting watts, fuel, runtime.</p></div>
+        <div class="card card-soft"><span class="tag accent">solar-sizer.com</span><h3 class="mt-s">Off-grid solar</h3><p>Panels, battery Ah, inverter, controller.</p></div>
+        <div class="card card-soft"><span class="tag accent">battery-bank-sizer.com</span><h3 class="mt-s">Battery banks</h3><p>How many, at 12V / 24V / 48V.</p></div>
+        <div class="card card-soft"><span class="tag accent">hvac-load-calc.com</span><h3 class="mt-s">HVAC load</h3><p>Room BTU, mini-split size, duct CFM.</p></div>
+        <div class="card card-soft"><span class="tag accent">trailertowcalc.com</span><h3 class="mt-s">Trailer towing</h3><p>Tow rating, tongue weight, payload.</p></div>
+        <div class="card card-soft"><span class="tag accent">chickencoopcalc.com</span><h3 class="mt-s">Coop sizing</h3><p>Coop and run square feet, feed cost.</p></div>
+        <div class="card card-soft"><span class="tag accent">welding-calculator.com</span><h3 class="mt-s">Welding settings</h3><p>TIG amps, MIG wire and gas, stick rod.</p></div>
+        <div class="card card-soft"><span class="tag accent">aquarium-stocking.com</span><h3 class="mt-s">Aquarium stocking</h3><p>Bioload, heater watts, filter turnover.</p></div>
+      </div>
+      <p class="lede mt-m" style="font-size:26px">Plus <b style="color:var(--text-1)">shoppacks.net</b> &mdash; $49 operating packs for service shops. Every domain is live today.</p>
+      <aside class="notes">Do not read all eight aloud &mdash; sweep them. "This is not a plan. This is live." Sweep the grid and name the clusters: "Home power &mdash; generator, solar, battery. Home comfort &mdash; HVAC. Vehicles &mdash; towing. Homestead &mdash; chickens. Metalwork &mdash; welding. Hobby &mdash; aquariums." Then the important detail: "Every one is a free calculator on its own branded domain, with the math shown. And there is already a paid layer on top: shop packs at forty-nine dollars for the service shops these tools serve." That last line matters &mdash; it proves the model has a paid surface already.</aside>
+    </section>
+
+    <!-- ============ 7 Â· STAT ============ -->
+    <section class="slide center" data-section="02 Â· What is live" data-label="The record">
+      <p class="eyebrow">The record we bring to a public market</p>
+      <div class="mega mt-s">19<span class="slash"> / </span>20</div>
+      <p class="lede mt-m" style="text-align:center">Troubled platforms entered, and recovered. The same loop now points at trade questions anyone can search.</p>
+      <p class="stat-sub mt-m">Fortune-100 integration record &middot; 22 years</p>
+      <aside class="notes">This is the credibility anchor &mdash; let it breathe. "Nineteen out of twenty. That is the record on burning enterprise platforms." Then connect it: "The reason a calculator business can work with one operator is the same reason nineteen platforms got fixed &mdash; not heroics, a repeatable loop and the discipline to measure before touching anything." Do not oversell the analogy; the point is process portability. Pause here, then say: "So where does it go from eight calculators?"</aside>
+    </section>
+
+    <!-- ============ 8 Â· EXPANSION ============ -->
+    <section class="slide" data-section="03 Â· Where it goes" data-label="The expansion">
+      <p class="eyebrow">The move</p>
+      <h2 class="mt-s">All calculators.<br>All markets.</h2>
+      <div class="grid g2 mt-m">
+        <ol class="idx">
+          <li><span class="n">01</span><p><b>One factory.</b> A repeatable build that stands up a calculator for any trade with a search-worthy sizing question.</p></li>
+          <li><span class="n">02</span><p><b>Same loop.</b> Measure the query, isolate the real answer, document the math, coach the buyer.</p></li>
+          <li><span class="n">03</span><p><b>Honest by default.</b> No paywall on the answer &mdash; the math is shown and the assumptions are named. The trust is the moat.</p></li>
+          <li><span class="n">04</span><p><b>Every market, not one.</b> Ship a calculator per trade, then a pack per trade that wants the follow-through.</p></li>
+        </ol>
+        <div class="card">
+          <span class="tag accent">MARKET &rarr; ASSET</span>
+          <div class="matrix mt-s">
+            <div class="m">Home power</div><div class="v">generator &middot; solar &middot; battery bank</div>
+            <div class="m">Home comfort</div><div class="v">HVAC load</div>
+            <div class="m">Truck &amp; trailer</div><div class="v">towing</div>
+            <div class="m">Homestead</div><div class="v">chicken coop</div>
+            <div class="m">Metalwork</div><div class="v">welding <b>+ shop pack</b></div>
+            <div class="m">Hobby</div><div class="v">aquarium</div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes">This is the pitch in one page. "Eight calculators is not the business. The business is a factory that turns any trade question into a calculator &mdash; and one loop that makes each answer honest." Walk the matrix: "Six markets today. The power cluster alone is three tools that share an audience. Each market we enter gets a free calculator first, and a paid pack second." Name the ambition plainly: "All calculators, all markets &mdash; every trade that has a number people search before they spend." Then hand off to the model.</aside>
+    </section>
+
+    <!-- ============ 9 Â· BUSINESS MODEL ============ -->
+    <section class="slide" data-section="03 Â· Where it goes" data-label="The model">
+      <p class="eyebrow">The model</p>
+      <h2 class="mt-s">Free answer.<br>Paid follow-through.</h2>
+      <div class="grid g3 mt-l">
+        <div class="card"><span class="tag">TOP OF INTENT</span><h3 class="mt-s">The calculator</h3><p>The exact pre-purchase question, answered free with the math shown. No paywall. The trust compounds per answer.</p></div>
+        <div class="card card-top"><span class="tag accent">THE PAID LAYER</span><h3 class="mt-s">Shop Packs &middot; $49</h3><p>shoppacks.net: done-for-you quote, follow-up, review and booking packs for the service shops these tools feed.</p></div>
+        <div class="card"><span class="tag">THE INTENT TAIL</span><h3 class="mt-s">Lead &amp; affiliate</h3><p>Where a sizing answer implies a purchase, point the buyer at the right part or pro. <span class="dim3">[revenue mix to confirm with live data]</span></p></div>
+      </div>
+      <p class="lede mt-l" style="font-size:26px">Free tools earn the audience; packs and intent convert it. <span class="dim3">Instrumented economics: [fill from live analytics].</span></p>
+      <aside class="notes">Be precise and do not invent numbers. "There are three layers. Layer one is the free calculator &mdash; that is the trust engine, it stays free forever. Layer two is real and already shipping: the forty-nine dollar shop pack, sold on shoppacks.net to the service shops these calculators serve. Layer three is the intent tail &mdash; when a sizing answer implies a purchase, the buyer gets pointed at the right part or pro." Then flag the honest gap: "We have not yet instrumented the analytics that would let me hand you conversion numbers. That is the first job of the money, not a footnote."</aside>
+    </section>
+
+    <!-- ============ 10 Â· WHY US ============ -->
+    <section class="slide" data-section="03 Â· Where it goes" data-label="Why us">
+      <p class="eyebrow">Why this operator</p>
+      <h2 class="mt-s">The machinery is already built.</h2>
+      <div class="grid g3 mt-l">
+        <div class="card"><span class="tag">THE RECORD</span><h3 class="mt-s">22 years, 19 of 20</h3><p>Fortune-100 platforms recovered on a documented, repeatable loop &mdash; not one lucky run.</p></div>
+        <div class="card"><span class="tag">THE ENGINE</span><h3 class="mt-s">Private AI lab</h3><p>An RTX 4070 lab that measures decode, routes GPUs, and runs four isolated agents &mdash; the build factory, already running.</p></div>
+        <div class="card"><span class="tag">THE SHIPPING</span><h3 class="mt-s">One operator, many domains</h3><p>Eight branded calculator sites plus a paid pack, built and published solo. The distribution is already plural.</p></div>
+      </div>
+      <div class="photo mt-l" style="aspect-ratio:auto;height:250px">
+        <img src="https://jpanasuk-netizen.github.io/the-closer/assets/hero-lab.jpg" alt="The private RTX lab behind The Closer campaign">
+        <div class="cap">The local AI lab: measure the boundary, then hand the agent the boundary &mdash; not the box.</div>
+      </div>
+      <aside class="notes">Answer the obvious investor question before it is asked: why can one person run this? "Because the machinery already exists. The loop is proven on twenty enterprise platforms. The build factory is a private AI lab that measures and routes and runs agents &mdash; it is already standing. And the shipping record is plural: eight domains and a paid product, built solo." Keep the tone flat and factual; the photo carries the lab credibility. Transition: "So the ask is not about building. It is about coverage."</aside>
+    </section>
+
+    <!-- ============ 11 Â· THE ASK ============ -->
+    <section class="slide" data-section="03 Â· Where it goes" data-label="The ask">
+      <p class="eyebrow">The ask</p>
+      <h2 class="mt-s">Expand coverage,<br>not features.</h2>
+      <div class="grid g3 mt-l">
+        <div class="card card-top"><span class="tag accent">BUILD</span><h3 class="mt-s">One calculator per market</h3><p>A calculator for every trade we can name, shipped from the same factory.</p></div>
+        <div class="card card-top"><span class="tag accent">MEASURE</span><h3 class="mt-s">Instrument every answer</h3><p>Query volume, intent, and conversion on every calculator. The loop, finally pointed at the web with live numbers.</p></div>
+        <div class="card card-top"><span class="tag accent">CONVERT</span><h3 class="mt-s">Layer the paid surfaces</h3><p>Shop Packs and trade affiliate on top of the free trust &mdash; a paid path in every market we enter.</p></div>
+      </div>
+      <p class="lede mt-l" style="font-size:26px">Scope target: <span class="dim3">[X new calculators &middot; Y markets &middot; Z months &mdash; set with live data]</span></p>
+      <aside class="notes">Make the ask about scope, and be honest about the one number we have not set. "I am not asking for features. I am asking to expand coverage." Walk the three buckets: build one calculator per market, instrument every answer, and layer the paid surface on top. Then the integrity moment: "The one number I will not invent is the round size and the timeline. I left it blank on purpose &mdash; it should be set against real query volume, which is the first thing the instrumentation gives us." Pause, then move to the close.</aside>
+    </section>
+
+    <!-- ============ 12 Â· CLOSE ============ -->
+    <section class="slide center" data-section="Close" data-label="Close">
+      <p class="eyebrow">Now available</p>
+      <div class="display-sm mt-m" style="color:var(--text-1)">SEND THE CLOSER.</div>
+      <p class="lede mt-m" style="text-align:center">Every calculator. Every market. One operator who has already recovered nineteen of twenty &mdash; and a factory to make the next eighty.</p>
+      <div class="mt-l center" style="gap:10px">
+        <div style="font-size:28px;font-weight:600">715-970-0204</div>
+        <div style="font-size:24px"><a href="mailto:jpanasuk@gmail.com">jpanasuk@gmail.com</a></div>
+        <div class="mono" style="font-size:20px;color:var(--text-3)">jpanasuk-netizen.github.io/the-closer &middot; github.com/jpanasuk-netizen &middot; shoppacks.net</div>
+      </div>
+      <aside class="notes">Land it and stop talking. "Every calculator. Every market. One operator who has already recovered nineteen of twenty, and a factory to make the next eighty." Then the single call to action: "If you want the demo, the calculators are live right now &mdash; click any domain on the fleet page. If you want the numbers, that is what the instrumentation buys first." Give the phone and email, hold eye contact, and let them ask the next question instead of filling the silence.</aside>
+    </section>
+
+  </div>
+
+  <div class="footbar">
+    <span class="pageno" id="pageno">01 / 12</span>
+    <span class="rule"></span>
+    <span id="footTag">Calculator Network &middot; V1</span>
+  </div>
+  <div class="progress"><span id="pbar"></span></div>
+
+  <div class="notes-overlay" id="notes"><b>Speaker notes &middot; press N to hide</b><div id="notesBody"></div></div>
+  <div class="hint" id="hint">&larr; &rarr; navigate &middot; N notes</div>
+</div>
+
+<script>
+(function(){
+  var stage = document.getElementById('stage');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var i = 0;
+  var pageno = document.getElementById('pageno');
+  var pbar = document.getElementById('pbar');
+  var secLabel = document.getElementById('secLabel');
+  var notes = document.getElementById('notes');
+  var notesBody = document.getElementById('notesBody');
+  var hint = document.getElementById('hint');
+  var total = slides.length;
+  function pad(n){ return (n<10?'0':'')+n; }
+  function show(n){
+    i = Math.max(0, Math.min(total-1, n));
+    slides.forEach(function(s,k){
+      s.classList.toggle('is-active', k===i);
+      s.classList.toggle('is-prev', k<i);
+    });
+    pageno.textContent = pad(i+1)+' / '+pad(total);
+    pbar.style.width = ((i+1)/total*100)+'%';
+    secLabel.textContent = slides[i].getAttribute('data-section') || '';
+    var note = slides[i].querySelector('.notes');
+    notesBody.innerHTML = note ? note.innerHTML : '';
+    try{ history.replaceState(null,'','#'+(i+1)); }catch(e){}
+  }
+  function fit(){
+    var s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
+    stage.style.transform = 'translate('+((window.innerWidth-1920*s)/2)+'px,'+((window.innerHeight-1080*s)/2)+'px) scale('+s+')';
+  }
+  window.addEventListener('resize', fit);
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if(k==='ArrowRight'||k===' '||k==='PageDown'||k==='ArrowDown'){ show(i+1); e.preventDefault(); }
+    else if(k==='ArrowLeft'||k==='PageUp'||k==='ArrowUp'){ show(i-1); e.preventDefault(); }
+    else if(k==='Home'){ show(0); }
+    else if(k==='End'){ show(total-1); }
+    else if(k==='n'||k==='N'){ notes.classList.toggle('open'); }
+  });
+  stage.addEventListener('click', function(e){
+    var x = e.clientX / window.innerWidth;
+    if(x < 0.28){ show(i-1); } else { show(i+1); }
+  });
+  document.addEventListener('click', function(){ hint.style.opacity = 0; }, {once:true});
+  fit();
+  var start = parseInt((location.hash||'').replace('#',''),10);
+  show(isNaN(start) ? 0 : start-1);
+})();
+</script>
+</body>
+</html>
+
