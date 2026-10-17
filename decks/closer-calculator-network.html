@@ -154,6 +154,20 @@ ol.idx > li p b{color:var(--text-1);font-weight:600}
 .hint{position:absolute;right:112px;bottom:118px;font-family:var(--font-mono);font-size:15px;
   letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);z-index:9}
 
+
+/* ================= Q STREAMING HOME NAV (added: escape hatch back to qstreamingllc.com) ================= */
+.qs-home-nav{position:fixed;top:0;left:0;right:0;height:60px;z-index:9999;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 18px;background:rgba(2,8,23,.97);border-bottom:3px solid #17e6d2;box-shadow:0 4px 0 rgba(255,63,212,.45),0 10px 30px rgba(0,0,0,.55);font-family:'Courier New',ui-monospace,monospace}
+.qs-home-brand{display:flex;align-items:center;gap:11px;color:#fff;text-decoration:none;font-weight:900;letter-spacing:.14em;font-size:16px;white-space:nowrap}
+.qs-home-brand:hover{text-decoration:none;color:#ffe95a}
+.qs-home-brand img{width:38px;height:38px;object-fit:contain;background:#fff;border:2px solid #ff3fd4;padding:2px;box-shadow:3px 3px 0 #00cfff}
+.qs-home-brand small{display:block;font-size:10px;letter-spacing:.22em;color:#17e6d2;font-weight:700}
+.qs-home-btn{display:inline-flex;align-items:center;gap:8px;background:#17e6d2;color:#00131c!important;text-decoration:none;font-weight:900;letter-spacing:.05em;font-size:16px;padding:11px 18px;border:3px solid #00131c;box-shadow:5px 5px 0 #ff3fd4;white-space:nowrap}
+.qs-home-btn:hover{text-decoration:none;transform:translate(2px,2px);box-shadow:3px 3px 0 #ff3fd4;background:#ffe95a}
+.qs-end-home{display:inline-flex;align-items:center;gap:10px;margin-top:26px;background:#17e6d2;color:#00131c!important;text-decoration:none;font-family:'Courier New',ui-monospace,monospace;font-weight:900;letter-spacing:.06em;font-size:22px;padding:16px 26px;border:3px solid #00131c;box-shadow:7px 7px 0 #ff3fd4}
+.qs-end-home:hover{text-decoration:none;background:#ffe95a;transform:translate(2px,2px);box-shadow:5px 5px 0 #ff3fd4}
+.qs-foot-home{pointer-events:auto;color:var(--accent);font-weight:600}
+@media(max-width:640px){.qs-home-nav{height:56px;padding:0 10px}.qs-home-brand{font-size:12px;letter-spacing:.08em}.qs-home-brand small{display:none}.qs-home-brand img{width:32px;height:32px}.qs-home-btn{font-size:13px;padding:9px 11px;box-shadow:3px 3px 0 #ff3fd4}.qs-end-home{font-size:18px;padding:13px 18px}}
+
 /* ================= PRINT ================= */
 @page{size:1920px 1080px landscape;margin:0}
 @media print{
@@ -161,11 +175,16 @@ ol.idx > li p b{color:var(--text-1);font-weight:600}
   .stage{position:static;width:auto;height:auto;transform:none!important;background:var(--bg)}
   .slide{position:relative;inset:auto;opacity:1!important;transform:none!important;
     height:1080px;width:1920px;page-break-after:always;overflow:hidden}
-  .chrome,.footbar,.progress,.notes-overlay,.hint{display:none!important}
+  .chrome,.footbar,.progress,.notes-overlay,.hint,.qs-home-nav{display:none!important}
 }
 </style>
 </head>
 <body>
+<!-- Q Streaming home nav: always-visible escape hatch out of the deck (same-tab, so it actually leaves the deck) -->
+<nav class="qs-home-nav" aria-label="Q Streaming home">
+  <a class="qs-home-brand" href="https://qstreamingllc.com/"><img src="../assets/q-logo.png" alt="Q Streaming LLC logo"><span>Q STREAMING LLC<small>QSTREAMINGLLC.COM</small></span></a>
+  <a class="qs-home-btn" href="https://qstreamingllc.com/">&larr; Back to Q Streaming Home</a>
+</nav>
 <div class="stage" id="stage">
 
   <!-- fixed chrome -->
@@ -358,6 +377,7 @@ ol.idx > li p b{color:var(--text-1);font-weight:600}
         <div style="font-size:24px"><a href="mailto:jpanasuk@gmail.com">jpanasuk@gmail.com</a></div>
         <div class="mono" style="font-size:20px;color:var(--text-3)">jpanasuk-netizen.github.io/the-closer &middot; github.com/jpanasuk-netizen &middot; shoppacks.net</div>
       </div>
+      <div class="center"><a class="qs-end-home" href="https://qstreamingllc.com/">&larr; Back to Q Streaming Home</a></div>
       <aside class="notes">Land it and stop talking. "Every calculator. Every market. One operator who has already recovered nineteen of twenty, and a factory to make the next eighty." Then the single call to action: "If you want the demo, the calculators are live right now &mdash; click any domain on the fleet page. If you want the numbers, that is what the instrumentation buys first." Give the phone and email, hold eye contact, and let them ask the next question instead of filling the silence.</aside>
     </section>
 
@@ -366,6 +386,7 @@ ol.idx > li p b{color:var(--text-1);font-weight:600}
   <div class="footbar">
     <span class="pageno" id="pageno">01 / 12</span>
     <span class="rule"></span>
+    <a class="qs-foot-home" href="https://qstreamingllc.com/">&larr; Q Streaming Home</a>
     <span id="footTag">Calculator Network &middot; V1</span>
   </div>
   <div class="progress"><span id="pbar"></span></div>
@@ -401,8 +422,11 @@ ol.idx > li p b{color:var(--text-1);font-weight:600}
     try{ history.replaceState(null,'','#'+(i+1)); }catch(e){}
   }
   function fit(){
-    var s = Math.min(window.innerWidth/1920, window.innerHeight/1080);
-    stage.style.transform = 'translate('+((window.innerWidth-1920*s)/2)+'px,'+((window.innerHeight-1080*s)/2)+'px) scale('+s+')';
+    var nav = document.querySelector('.qs-home-nav');
+    var barH = nav ? nav.offsetHeight : 60;
+    var availH = Math.max(200, window.innerHeight - barH);
+    var s = Math.min(window.innerWidth/1920, availH/1080);
+    stage.style.transform = 'translate('+((window.innerWidth-1920*s)/2)+'px,'+(barH + (availH-1080*s)/2)+'px) scale('+s+')';
   }
   window.addEventListener('resize', fit);
   document.addEventListener('keydown', function(e){
@@ -414,6 +438,7 @@ ol.idx > li p b{color:var(--text-1);font-weight:600}
     else if(k==='n'||k==='N'){ notes.classList.toggle('open'); }
   });
   stage.addEventListener('click', function(e){
+    if(e.target.closest && e.target.closest('a')){ return; }
     var x = e.clientX / window.innerWidth;
     if(x < 0.28){ show(i-1); } else { show(i+1); }
   });
