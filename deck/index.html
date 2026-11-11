@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jeremy Panasuk · Where we are now, where we're going</title>
+<meta name="description" content="Jeremy Panasuk, AI Engineer: a 12-slide state of the house. Agents, Termy X, Termy XL, CONNECT, content, quant lab, tools, free inference, and the road ahead.">
+<meta name="theme-color" content="#0b0a08">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230b0a08'/><text x='32' y='44' font-size='34' text-anchor='middle' fill='%23e8b64c' font-family='Arial' font-weight='900'>JP</text></svg>">
+<style>
+@font-face{font-family:Outfit;src:url(assets/fonts/Outfit-Regular.ttf);font-weight:400}
+@font-face{font-family:Outfit;src:url(assets/fonts/Outfit-Medium.ttf);font-weight:500}
+@font-face{font-family:Outfit;src:url(assets/fonts/Outfit-Bold.ttf);font-weight:700}
+@font-face{font-family:Outfit;src:url(assets/fonts/Outfit-ExtraBold.ttf);font-weight:800}
+@font-face{font-family:Plex;src:url(assets/fonts/IBMPlexMono-Regular.ttf);font-weight:400}
+@font-face{font-family:Plex;src:url(assets/fonts/IBMPlexMono-Medium.ttf);font-weight:500}
+:root{
+  --bg:#0b0a08; --bg2:#13110d; --card:#17140f; --line:#2c261b;
+  --gold:#e8b64c; --gold2:#f6d58a; --gold3:#a8812f; --ink:#f3ede1; --mute:#a59c8a; --dim:#6f6756;
+  --ok:#8fd19e; --warn:#f0a35e;
+  font-size:clamp(12.5px, calc(1vh + .4vw), 30px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;background:var(--bg)}
+body{font-family:Outfit,system-ui,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--gold2);text-decoration:none;border-bottom:1px solid rgba(232,182,76,.35);transition:.2s}
+a:hover{color:#fff;border-color:var(--gold)}
+.mono{font-family:Plex,ui-monospace,monospace}
+/* backdrop */
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(60vw 50vh at 85% -10%,rgba(232,182,76,.10),transparent 60%),
+             radial-gradient(50vw 60vh at -10% 110%,rgba(232,182,76,.07),transparent 60%);}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;
+  background-image:linear-gradient(rgba(232,182,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(232,182,76,.05) 1px,transparent 1px);
+  background-size:4rem 4rem;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 80%)}
+/* slides */
+.slide{position:relative;z-index:1;min-height:100vh;scroll-snap-align:start;display:flex;flex-direction:column;justify-content:center;
+  padding:5.2rem clamp(1.5rem,5vw,9rem) 4.6rem}
+.wrap{width:100%;max-width:min(100%,3000px);margin:0 auto}
+.kicker{font-family:Plex,monospace;font-size:.95rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.8rem;margin-bottom:1.1rem}
+.kicker:before{content:"";width:2.4rem;height:2px;background:var(--gold)}
+h1{font-weight:800;font-size:5.6rem;line-height:.95;letter-spacing:-.02em}
+h2{font-weight:800;font-size:3.6rem;line-height:1;letter-spacing:-.015em;margin-bottom:.6rem}
+h3{font-weight:700;font-size:1.35rem;line-height:1.15}
+.gold{color:var(--gold)}
+.grad{background:linear-gradient(100deg,var(--gold2),var(--gold) 45%,var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:1.45rem;color:var(--mute);max-width:62rem;line-height:1.35}
+p,li{line-height:1.4}
+.card{background:linear-gradient(180deg,rgba(255,255,255,.025),transparent),var(--card);border:1px solid var(--line);border-radius:1.1rem;padding:1.3rem 1.4rem;position:relative}
+.card.goldc{border-color:rgba(232,182,76,.55);box-shadow:0 0 0 1px rgba(232,182,76,.12) inset,0 1.2rem 3rem -1.5rem rgba(232,182,76,.35)}
+.tag{display:inline-flex;align-items:center;gap:.35rem;font-family:Plex,monospace;font-size:.78rem;letter-spacing:.06em;padding:.25rem .6rem;border-radius:99px;border:1px solid var(--line);color:var(--mute);white-space:nowrap}
+.tag.g{border-color:rgba(232,182,76,.5);color:var(--gold2);background:rgba(232,182,76,.08)}
+.tag.ok{border-color:rgba(143,209,158,.45);color:var(--ok)}
+.tag.warn{border-color:rgba(240,163,94,.45);color:var(--warn)}
+.next{margin-top:1.4rem;display:inline-flex;gap:.8rem;align-items:center;font-size:1.15rem;padding:.7rem 1.1rem;border-radius:.8rem;border:1px dashed rgba(232,182,76,.55);background:rgba(232,182,76,.06)}
+.next b{font-family:Plex,monospace;font-size:.8rem;letter-spacing:.2em;color:var(--gold);font-weight:500}
+.row{display:flex;gap:1.6rem;align-items:stretch}
+.split{display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:center}
+ul.ticks{list-style:none;display:grid;gap:.55rem;font-size:1.15rem}
+ul.ticks li{padding-left:1.6rem;position:relative;color:#ddd5c4}
+ul.ticks li:before{content:"";position:absolute;left:0;top:.5em;width:.6rem;height:.6rem;border-radius:2px;background:var(--gold);transform:rotate(45deg)}
+.big-emoji{font-size:2rem;line-height:1}
+/* chrome */
+#bar{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1.1rem clamp(1.5rem,5vw,9rem);
+  background:linear-gradient(var(--bg),rgba(11,10,8,0));font-family:Plex,monospace;font-size:.85rem;color:var(--mute);letter-spacing:.08em}
+#bar .brand{color:var(--ink);font-weight:500}#bar .brand i{font-style:normal;color:var(--gold)}
+#count{font-family:Plex,monospace;font-size:1rem;color:var(--ink);border:1px solid var(--line);background:rgba(23,20,15,.85);padding:.4rem .9rem;border-radius:99px}
+#count b{color:var(--gold);font-weight:500}
+#progress{position:fixed;left:0;top:0;height:3px;background:linear-gradient(90deg,var(--gold3),var(--gold2));z-index:11;width:0;transition:width .3s}
+#nav{position:fixed;right:clamp(1rem,2vw,3rem);top:50%;transform:translateY(-50%);z-index:10;display:flex;flex-direction:column;gap:.55rem}
+#nav button{width:.7rem;height:.7rem;border-radius:50%;border:1px solid var(--gold3);background:transparent;cursor:pointer;padding:0;transition:.2s}
+#nav button.on{background:var(--gold);transform:scale(1.35);box-shadow:0 0 .8rem rgba(232,182,76,.6)}
+#hint{position:fixed;bottom:1.1rem;left:50%;transform:translateX(-50%);z-index:10;font-family:Plex,monospace;font-size:.78rem;color:var(--dim);display:flex;gap:1rem;align-items:center}
+#hint kbd{font-family:Plex,monospace;border:1px solid var(--line);border-bottom-width:2px;border-radius:.3rem;padding:.05rem .4rem;color:var(--mute);background:var(--bg2)}
+#arrows{position:fixed;bottom:1rem;right:clamp(1.5rem,5vw,9rem);z-index:10;display:flex;gap:.5rem}
+#arrows button{font:inherit;font-size:1.1rem;width:2.4rem;height:2.4rem;border-radius:.6rem;border:1px solid var(--line);background:rgba(23,20,15,.85);color:var(--gold);cursor:pointer}
+#arrows button:hover{border-color:var(--gold)}
+/* reveal */
+.slide .wrap>*{opacity:0;transform:translateY(1.2rem);transition:opacity .7s ease,transform .7s ease}
+.slide.seen .wrap>*{opacity:1;transform:none}
+.slide.seen .wrap>*:nth-child(2){transition-delay:.08s}.slide.seen .wrap>*:nth-child(3){transition-delay:.16s}.slide.seen .wrap>*:nth-child(4){transition-delay:.24s}
+@media (prefers-reduced-motion:reduce){.slide .wrap>*{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 1 title */
+#s1 .split{grid-template-columns:auto 1fr;gap:5rem}
+.portrait{width:22rem;aspect-ratio:1;border-radius:50%;padding:.45rem;background:conic-gradient(from 200deg,var(--gold2),var(--gold3),var(--gold),var(--gold2));box-shadow:0 0 6rem -1rem rgba(232,182,76,.45)}
+.portrait img{width:100%;height:100%;border-radius:50%;display:block;background:#05070c}
+#s1 h1{font-size:6.6rem}
+#s1 .role{font-family:Plex,monospace;font-size:1.2rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;margin:1.4rem 0 1.8rem}
+.ww{display:flex;gap:1.2rem;flex-wrap:wrap}
+.ww .card{min-width:18rem}
+.ww .card small{display:block;font-family:Plex,monospace;letter-spacing:.2em;font-size:.75rem;color:var(--gold);margin-bottom:.4rem}
+.ww .card span{font-size:1.5rem;font-weight:700}
+/* 2 house */
+.agents{display:grid;grid-template-columns:repeat(5,1fr);gap:.9rem;margin-top:1.8rem}
+.agent{display:flex;gap:.9rem;align-items:center;padding:.85rem 1rem;border-radius:.9rem;border:1px solid var(--line);background:var(--card);transition:.2s}
+.agent:hover{border-color:var(--gold);transform:translateY(-2px)}
+.agent .e{font-size:1.6rem;width:2.6rem;height:2.6rem;display:grid;place-items:center;border-radius:.7rem;background:rgba(232,182,76,.08);border:1px solid rgba(232,182,76,.25);flex:none}
+.agent b{display:block;font-size:1.05rem;font-weight:700}
+.agent span{display:block;font-size:.85rem;color:var(--mute)}
+.stackline{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.6rem}
+/* 3 termy x */
+.shots{display:flex;gap:1.4rem;justify-content:center;align-items:flex-start}
+.shot{height:68vh;border-radius:1rem;overflow:hidden;border:1px solid rgba(232,182,76,.45);box-shadow:0 2rem 4rem -2rem #000,0 0 3rem -1.5rem rgba(232,182,76,.5);background:#000}
+.shot img{height:100%;display:block}
+.shot:nth-child(2){margin-top:4vh}.shot.uw{display:none}
+@media (min-aspect-ratio:2/1){.shot.uw{display:block;margin-top:2vh}}
+.caption{font-family:Plex,monospace;font-size:.75rem;color:var(--dim);margin-top:.8rem;text-align:center}
+/* 4 termy xl mock */
+#s4 .split{grid-template-columns:1fr 1.25fr;gap:3.5rem}
+.feat{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.3rem}
+.feat .tag{font-size:.85rem;color:var(--ink)}
+.desk{display:grid;grid-template-columns:4.2rem 1fr;height:66vh;border-radius:1.2rem;border:1px solid var(--line);background:#0e0c09;overflow:hidden;box-shadow:0 2rem 5rem -2rem #000}
+.dock{border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;gap:.9rem;padding:1rem 0;background:#0a0907}
+.dock i{font-style:normal;width:2.4rem;height:2.4rem;border-radius:.6rem;display:grid;place-items:center;font-size:1.1rem;border:1px solid var(--line)}
+.dock i.on{border-color:var(--gold);background:rgba(232,182,76,.12)}
+.page{padding:1.2rem 1.4rem;display:flex;flex-direction:column;gap:.9rem;min-width:0;position:relative}
+.page .top{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.page .subj{font-size:1.6rem;font-weight:800}
+.heat{display:flex;align-items:center;gap:.6rem;font-family:Plex,monospace;font-size:.75rem;color:var(--mute)}
+.heat .m{width:8rem;height:.5rem;border-radius:9px;background:linear-gradient(90deg,#3a2f1a,var(--gold) 70%,#ff8a3d);position:relative}
+.heat .m:after{content:"";position:absolute;left:72%;top:-.25rem;width:2px;height:1rem;background:#fff}
+.takes{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;flex:1;min-height:0}
+.take{border-radius:.9rem;padding:.9rem 1rem;border:1px solid rgba(232,182,76,.6);background:linear-gradient(160deg,rgba(232,182,76,.16),rgba(232,182,76,.04) 60%);font-size:.9rem;color:#efe6d2;display:flex;flex-direction:column;gap:.5rem;overflow:hidden}
+.take .who{font-family:Plex,monospace;font-size:.72rem;color:var(--gold2)}
+.take .ln{height:.55rem;border-radius:4px;background:rgba(243,237,225,.18)}
+.take .ln.s{width:70%}.take .ln.xs{width:45%}
+.editor{position:absolute;right:1.2rem;bottom:1.2rem;width:46%;border-radius:.9rem;border:1px solid var(--gold);background:#15120c;padding:.9rem 1rem;box-shadow:0 1.5rem 3rem -1rem #000;font-size:.85rem}
+.editor .dial{display:flex;justify-content:space-between;font-family:Plex,monospace;font-size:.68rem;color:var(--mute);margin:.4rem 0}
+.editor .track{height:.35rem;border-radius:4px;background:var(--line);position:relative;margin-bottom:.7rem}
+.editor .track:after{content:"";position:absolute;left:58%;top:-.3rem;width:.95rem;height:.95rem;border-radius:50%;background:var(--gold);box-shadow:0 0 .6rem var(--gold)}
+.editor .vars{display:flex;gap:.4rem;margin-bottom:.6rem}
+.editor .vars span{flex:1;text-align:center;font-family:Plex,monospace;font-size:.7rem;padding:.25rem;border-radius:.4rem;border:1px solid var(--line)}
+.editor .vars span.on{border-color:var(--gold);color:var(--gold2)}
+.editor .foot{display:flex;justify-content:space-between;align-items:center;font-family:Plex,monospace;font-size:.72rem;color:var(--mute)}
+.editor .send{background:var(--gold);color:#1a1408;font-weight:700;border-radius:.45rem;padding:.3rem .8rem;font-family:Outfit}
+.flip{position:absolute;right:0;top:0;bottom:0;width:1.4rem;background:linear-gradient(90deg,transparent,rgba(232,182,76,.12));border-left:1px solid rgba(232,182,76,.2)}
+/* 5 connect */
+.price{font-size:9rem;font-weight:800;line-height:.9}
+.paths{display:grid;grid-template-columns:repeat(6,1fr);gap:.7rem;margin-top:1.4rem}
+.paths div{border:1px solid var(--line);border-radius:.7rem;padding:.7rem .8rem;background:var(--card);font-weight:600;font-size:1rem}
+.paths div small{display:block;font-family:Plex,monospace;font-size:.7rem;color:var(--gold);font-weight:400}
+/* grids */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:1.8rem}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;margin-top:1.8rem}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:1.4rem;margin-top:1.8rem}
+.card h3{margin:.6rem 0 .4rem}
+.card p{color:var(--mute);font-size:1.02rem}
+.card .links{margin-top:.8rem;display:flex;flex-wrap:wrap;gap:.4rem .9rem;font-size:.95rem}
+/* 10 vision */
+.pipe{display:flex;align-items:center;gap:1rem;margin:2.2rem 0 1.4rem;flex-wrap:nowrap}
+.step{flex:1;text-align:center;padding:1.6rem 1rem;border-radius:1.1rem;border:1px solid rgba(232,182,76,.55);background:linear-gradient(170deg,rgba(232,182,76,.14),rgba(232,182,76,.02));}
+.step .big-emoji{font-size:2.6rem}
+.step b{display:block;font-size:1.8rem;font-weight:800;margin-top:.5rem}
+.step span{display:block;color:var(--mute);font-size:.95rem;margin-top:.3rem}
+.step.send{background:var(--gold);color:#1a1408;border-color:var(--gold2);box-shadow:0 0 4rem -1rem rgba(232,182,76,.7)}
+.step.send span{color:#3a2c10}
+.arrow{color:var(--gold);font-size:2rem;flex:none}
+.wired{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:1rem}
+/* 11 roadmap */
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6rem;margin-top:1.8rem}
+.road .col{border-top:3px solid var(--gold);background:var(--card);border-radius:0 0 1rem 1rem;padding:1.3rem 1.4rem;border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.road .col:nth-child(2){border-top-color:var(--gold3)}.road .col:nth-child(3){border-top-color:#5d4a22}
+.road h3{font-size:1.9rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.road li{list-style:none;padding:.7rem .8rem;border-radius:.6rem;background:rgba(255,255,255,.02);border:1px solid var(--line);margin-bottom:.6rem;font-size:1.05rem}
+.road li small{display:block;color:var(--dim);font-family:Plex,monospace;font-size:.72rem;margin-top:.2rem}
+/* 12 links */
+.linkgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem;margin-top:1.8rem}
+.lk{display:flex;gap:1rem;align-items:center;padding:1.1rem 1.3rem;border-radius:1rem;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.lk:hover{border-color:var(--gold);transform:translateY(-2px);color:var(--ink)}
+.lk .e{font-size:1.7rem}
+.lk b{display:block;font-size:1.15rem}
+.lk span{display:block;font-family:Plex,monospace;font-size:.78rem;color:var(--mute);word-break:break-all}
+footer{font-family:Plex,monospace;font-size:.78rem;color:var(--dim);margin-top:2rem}
+
+/* ultrawide: let things breathe sideways */
+@media (min-aspect-ratio:2/1){
+  .agents{grid-template-columns:repeat(5,1fr)}
+  .paths{grid-template-columns:repeat(12,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .linkgrid{grid-template-columns:repeat(4,1fr)}
+}
+/* narrower / mobile fallback */
+@media (max-aspect-ratio:3/2){
+  .agents{grid-template-columns:repeat(4,1fr)}
+  .g4{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:900px){
+  html{scroll-snap-type:none}
+  :root{font-size:14px}
+  .slide{padding:5rem 1.2rem 4rem}
+  .split,#s1 .split,#s4 .split{grid-template-columns:1fr;gap:2rem}
+  h1,#s1 h1{font-size:3.2rem} h2{font-size:2.4rem}
+  .agents{grid-template-columns:1fr 1fr}.g3,.g4,.g2,.road,.linkgrid{grid-template-columns:1fr}
+  .paths{grid-template-columns:repeat(2,1fr)}
+  .pipe{flex-direction:column}.arrow{transform:rotate(90deg)}
+  .shot{height:60vh}.desk{height:auto;min-height:60vh}
+  #nav,#hint{display:none}
+}
+
+/* origin / lava */
+.slide.lava{overflow:hidden}
+.slide.lava:before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(80vw 60vh at 50% 120%,rgba(255,86,20,.55),rgba(214,40,90,.25) 35%,rgba(232,182,76,.08) 60%,transparent 75%),
+             linear-gradient(180deg,var(--bg) 0%,#160805 55%,#2a0c06 100%);animation:glow 6s ease-in-out infinite alternate}
+.slide.lava.end:before{background:radial-gradient(80vw 60vh at 50% 120%,rgba(232,182,76,.45),rgba(255,120,40,.2) 40%,transparent 75%),linear-gradient(180deg,var(--bg),#1a1206)}
+@keyframes glow{from{filter:saturate(1) brightness(.9)}to{filter:saturate(1.3) brightness(1.15)}}
+.embers{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.embers i{position:absolute;bottom:-2vh;width:.35rem;height:.35rem;border-radius:50%;background:radial-gradient(#fff4c2,#ffb347 40%,#ff5a1f 70%,transparent);box-shadow:0 0 .8rem #ff8a3d;opacity:0;animation:rise linear infinite}
+.embers.soft i{background:radial-gradient(#fff6d6,var(--gold) 50%,transparent);box-shadow:0 0 .6rem var(--gold)}
+@keyframes rise{0%{transform:translate(0,0) scale(1);opacity:0}10%{opacity:1}100%{transform:translate(var(--dx),-105vh) scale(.3);opacity:0}}
+.huge{font-size:5rem}
+.lavatext{background:linear-gradient(100deg,#ff3d6e,#ff6a1f 35%,#ffb347 65%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:flow 5s ease-in-out infinite alternate}
+@keyframes flow{from{background-position:0 0}to{background-position:100% 0}}
+.forge{display:flex;align-items:stretch;gap:1rem;margin-top:2rem}
+.fstep{flex:1;border-radius:1.1rem;padding:1.4rem 1.2rem;display:flex;flex-direction:column;gap:.35rem;border:1px solid}
+.fstep b{font-size:1.5rem;font-weight:800}.fstep span:last-child{color:var(--mute);font-size:.95rem}
+.fstep.s1{background:linear-gradient(160deg,rgba(255,61,110,.28),rgba(255,106,31,.12));border-color:rgba(255,90,60,.6)}
+.fstep.s2{background:linear-gradient(160deg,rgba(255,106,31,.2),rgba(80,60,50,.15));border-color:rgba(255,140,60,.45)}
+.fstep.s3{background:linear-gradient(160deg,rgba(255,179,71,.18),rgba(232,182,76,.06));border-color:rgba(255,179,71,.5)}
+.fstep.s4{background:var(--gold);color:#1a1408;border-color:var(--gold2);box-shadow:0 0 4rem -1rem rgba(232,182,76,.8)}
+.fstep.s4 span:last-child{color:#3a2c10}
+.farrow{align-self:center;color:#ffb347;font-size:2rem}
+/* frames */
+.frame{margin:0;border-radius:1rem;overflow:hidden;border:1px solid rgba(232,182,76,.45);background:#000;box-shadow:0 2rem 4rem -2rem #000,0 0 3rem -1.6rem rgba(232,182,76,.5)}
+.frame img{display:block;width:100%;height:auto}
+.frame figcaption{font-family:Plex,monospace;font-size:.72rem;color:var(--dim);padding:.45rem .8rem;background:#0d0b08;border-top:1px solid var(--line)}
+#s4 .frame img{max-height:62vh;object-fit:cover;object-position:top}
+.frame.wide img{max-height:20vh;object-fit:cover}
+.g2 .frame img{max-height:26vh;object-fit:cover;object-position:top}
+.film{display:grid;grid-template-columns:repeat(6,1fr);gap:.5rem;margin-top:1.4rem;padding:.6rem;border-radius:.8rem;background:#050403;border:1px solid var(--line)}
+.film img{width:100%;aspect-ratio:9/12;object-fit:cover;border-radius:.4rem;display:block;max-height:24vh}
+.quant{display:grid;grid-template-columns:1fr auto;gap:1.4rem;align-items:start;margin-top:1.4rem}
+.g3.tight{margin-top:0;gap:1rem}.g3.tight .card{padding:1rem 1.1rem}.g3.tight h3{margin-top:0}
+.qimgs .frame img{max-height:36vh;width:auto}
+/* inventory */
+.inv{display:grid;grid-template-columns:repeat(6,1fr);gap:.6rem;margin-top:1.4rem}
+.inv>div{position:relative;border:1px solid var(--line);background:var(--card);border-radius:.7rem;padding:.6rem .75rem .6rem;display:flex;flex-direction:column;gap:.15rem;min-height:4.6rem}
+.inv>div:hover{border-color:var(--gold)}
+.inv b{font-size:.95rem}.inv span{font-size:.78rem;color:var(--mute);line-height:1.25}
+.inv .st{font-style:normal;font-family:Plex,monospace;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-top:auto}
+.inv .st:before{content:"● "}.inv .st.ok{color:var(--ok)}.inv .st.warn{color:var(--warn)}.inv .st.off{color:var(--dim)}
+.lk.hot{border-color:rgba(232,182,76,.6);background:linear-gradient(160deg,rgba(232,182,76,.16),var(--card))}
+@media (max-aspect-ratio:2/1){.inv{grid-template-columns:repeat(5,1fr)}.film img{max-height:18vh}}
+@media (max-width:900px){.forge{flex-direction:column}.farrow{transform:rotate(90deg)}.inv{grid-template-columns:1fr 1fr}.quant{grid-template-columns:1fr}.film{grid-template-columns:repeat(3,1fr)}.huge{font-size:3rem}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<header id="bar"><span class="brand">JEREMY PANASUK <i>·</i> STATE OF THE HOUSE</span><span id="count"><b>1</b> / 16</span></header>
+<nav id="nav" aria-label="Slides"></nav>
+<div id="hint"><kbd>←</kbd><kbd>→</kbd> or <kbd>PgUp</kbd><kbd>PgDn</kbd> · scroll works too</div>
+<div id="arrows"><button id="prev" aria-label="Previous slide">↑</button><button id="nextb" aria-label="Next slide">↓</button></div>
+
+<main>
+<!-- 1 TITLE -->
+<section class="slide" id="s1" data-title="Title">
+ <div class="wrap split">
+  <div class="portrait"><img src="assets/img/jeremy.png" alt="Jeremy Panasuk"></div>
+  <div>
+   <div class="kicker">State of the house · November 2026</div>
+   <h1>Where we are now.<br><span class="grad">Where we're going.</span></h1>
+   <div class="role">Jeremy Panasuk · AI Engineer · Building a brighter future</div>
+   <p class="lede">One builder in New Auburn, Wisconsin. A house of agents. Every tool forged in public, with a human hand on Send. This is the tour, and the future we're building toward.</p>
+   <div class="ww" style="margin-top:1.6rem">
+    <div class="card"><small>NOW</small><span>🏠 ~20 agents, one job each</span></div>
+    <div class="card"><small>SHIPPED TODAY</small><span>🟨 Termy XL built &amp; installed</span></div>
+    <div class="card goldc"><small>THE VISION</small><span>🖥️ One super-desk. You press Send.</span></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- 2 ORIGIN -->
+<section class="slide lava" id="s2" data-title="It started as molten lava">
+ <div class="embers" aria-hidden="true"></div>
+ <div class="wrap">
+  <div class="kicker">00 · Origin story</div>
+  <h2 class="huge">It started as <span class="lavatext">molten lava.</span></h2>
+  <p class="lede">Day one on the public GitHub, July 15, 2026, brought <b>Molten Lava</b>: a World of Warcraft addon that turns Holy Power into five animated stars, shifting from magenta to <span class="gold">gold</span> as you build to the burst. Raw heat, pure play. That same color run, molten into gold, is the line that runs through everything since.</p>
+  <div class="forge">
+   <div class="fstep s1"><span class="big-emoji">🌋</span><b>Molten</b><span>Molten Lava addon · day one, July 2026</span></div>
+   <div class="farrow">→</div>
+   <div class="fstep s2"><span class="big-emoji">🪨</span><b>Cooled into tools</b><span>calculators, desks, dashboards</span></div>
+   <div class="farrow">→</div>
+   <div class="fstep s3"><span class="big-emoji">⚒️</span><b>Forged into a house</b><span>~20 agents on one bus</span></div>
+   <div class="farrow">→</div>
+   <div class="fstep s4"><span class="big-emoji">👑</span><b>Termy XL</b><span>the one gold desk</span></div>
+  </div>
+  <div class="row" style="margin-top:1.4rem;gap:.6rem;flex-wrap:wrap"><a class="tag g" href="https://github.com/jpanasuk-netizen/molten-lava-addon" target="_blank" rel="noopener">🌋 molten-lava-addon</a><a class="tag" href="https://github.com/jpanasuk-netizen/electric-power-addon" target="_blank" rel="noopener">⚡ electric-power-addon</a></div>
+ </div>
+</section>
+
+<!-- 3 HOUSE -->
+<section class="slide" id="s3" data-title="The house today">
+ <div class="wrap">
+  <div class="kicker">01 · The house today</div>
+  <h2>~20 Grok Bot agents. <span class="gold">One job each.</span></h2>
+  <p class="lede">Plus a Hermes stack running on WSL. Every agent owns a lane, so nothing waits on a generalist and nothing ships without a human gate.</p>
+  <div class="agents">
+   <div class="agent"><div class="e">🦁</div><div><b>Leo-Bot</b><span>Dispatch</span></div></div>
+   <div class="agent"><div class="e">💰</div><div><b>MoneyBot</b><span>Money desk</span></div></div>
+   <div class="agent"><div class="e">📡</div><div><b>BTCC signals</b><span>Crypto signals</span></div></div>
+   <div class="agent"><div class="e">🎯</div><div><b>FreeBuff Kalshi</b><span>Kalshi 15m desk</span></div></div>
+   <div class="agent"><div class="e">📄</div><div><b>Cynthia-Res</b><span>Resumes</span></div></div>
+   <div class="agent"><div class="e">🎬</div><div><b>thetubebot</b><span>YouTube</span></div></div>
+   <div class="agent"><div class="e">🔎</div><div><b>SEO Bot</b><span>Search visibility</span></div></div>
+   <div class="agent"><div class="e">🆓</div><div><b>FreeModelsBot</b><span>Free-model scouting</span></div></div>
+   <div class="agent"><div class="e">🪽</div><div><b>Hermes Bot</b><span>Hermes stack</span></div></div>
+   <div class="agent"><div class="e">🌱</div><div><b>TapRoot</b><span>Local AI lab</span></div></div>
+   <div class="agent"><div class="e">🪟</div><div><b>GadDesk</b><span>Windows desk</span></div></div>
+   <div class="agent"><div class="e">📓</div><div><b>OpsLog</b><span>Operations log</span></div></div>
+   <div class="agent"><div class="e">🧭</div><div><b>Eve</b><span>Hunt status</span></div></div>
+   <div class="agent"><div class="e">📸</div><div><b>Headshot</b><span>Portraits</span></div></div>
+   <div class="agent"><div class="e">🤝</div><div><b>ProposalCloser</b><span>Proposals</span></div></div>
+   <div class="agent"><div class="e">🏪</div><div><b>localbiz2pitch</b><span>Local-business pitches</span></div></div>
+   <div class="agent"><div class="e">💡</div><div><b>BizDevIdeaBot</b><span>BizDev ideas</span></div></div>
+   <div class="agent"><div class="e">✏️</div><div><b>CorrectionBot</b><span>Corrections</span></div></div>
+   <div class="agent"><div class="e">📚</div><div><b>Annie++</b><span>ML ramp-up</span></div></div>
+   <div class="agent"><div class="e">🛠️</div><div><b>Grok Build</b><span>Builds</span></div></div>
+  </div>
+  <div class="next"><b>HEADING</b> 🔗 Every seat wired into one desk</div>
+ </div>
+</section>
+
+<!-- 4 CONNECTURE -->
+<section class="slide" id="s4" data-title="Connecture">
+ <div class="wrap split">
+  <div>
+   <div class="kicker">02 · Connecture</div>
+   <h2>The nervous system <span class="grad">of the house.</span></h2>
+   <p class="lede">Connecture is the agent bus and vault: calm mission control where every seat checks in, hands off, and leaves receipts.</p>
+   <ul class="ticks" style="margin-top:1.3rem">
+    <li><b>Bus</b>: agents post, mention and hand off work to each other</li>
+    <li><b>Vault</b>: shared folders for continuity, inbox, fleet, hunt and content</li>
+    <li><b>Leo dispatcher</b> routes notes and only reports a reply after the seat actually posts</li>
+    <li>Hermes profiles bridge onto the same bus</li>
+    <li>Scoped tokens you can revoke</li>
+   </ul>
+   <div class="next"><b>HEADING</b> 🧠 The wiring under Termy XL</div>
+  </div>
+  <figure class="frame"><img src="assets/img/connecture.jpg" alt="Connecture agent bus console screenshot"><figcaption>Connecture console · real UI capture</figcaption></figure>
+ </div>
+</section>
+
+<!-- 5 TERMY X -->
+<section class="slide" id="s5" data-title="Termy X">
+ <div class="wrap split">
+  <div>
+   <div class="kicker">03 · Termy X</div>
+   <h2>A native X desktop client.<br><span class="gold">No paid X API.</span></h2>
+   <p class="lede">Built on the open-source, MIT-licensed <a href="https://github.com/lassejlv/termy" target="_blank" rel="noopener">Termy</a> terminal. Timeline, search, trends, lookup and compose live in a panel beside your shell.</p>
+   <ul class="ticks" style="margin-top:1.4rem">
+    <li><b>Reply Guy</b> drafts replies in place</li>
+    <li><b>Treg</b> wired in for research tools</li>
+    <li><b>Free path</b> via OpenCLI using your own browser session</li>
+    <li>Public repo: <a href="https://github.com/jpanasuk-netizen/termy-x" target="_blank" rel="noopener">github.com/jpanasuk-netizen/termy-x</a></li>
+   </ul>
+   <div class="next"><b>NEXT</b> 📦 Release package</div>
+  </div>
+  <div>
+   <div class="shots">
+    <div class="shot"><img src="assets/img/termyx-trends.png" alt="Termy X trends tab screenshot"></div>
+    <div class="shot uw"><img src="assets/img/termyx-timeline.png" alt="Termy X timeline panel screenshot"></div>
+    <div class="shot"><img src="assets/img/termyx-reply.png" alt="Termy X search with an in-place reply draft"></div>
+   </div>
+   <div class="caption">Real Termy X captures · trends, timeline, and a search with a reply draft that is not sent</div>
+  </div>
+ </div>
+</section>
+
+<!-- 6 TERMY XL -->
+<section class="slide" id="s6" data-title="Termy XL">
+ <div class="wrap split xl">
+  <div>
+   <div class="kicker">04 · Termy XL</div>
+   <h2>The trends desk, <span class="grad">in Rust on the GPU.</span></h2>
+   <p class="lede">Built with GPUI. A slim XL dock expands to the right and snaps beside Termy X. One subject per full-window page, flipped like a book. Every take sits in its own gold card that wraps and scrolls.</p>
+   <div class="feat">
+    <span class="tag g">✍️ pop-out editor</span><span class="tag g">🎚️ tone dial</span><span class="tag g">3 variants</span><span class="tag g">280 counter</span>
+    <span class="tag g">🔥 heat meter</span><span class="tag g">🎯 Hit List</span><span class="tag g">🧾 receipts</span><span class="tag g">🔇 filters / mute</span>
+    <span class="tag g">⌨️ Ctrl+K</span><span class="tag g">🔄 read-only auto-refresh</span>
+   </div>
+   <div class="row" style="margin-top:1.4rem;flex-wrap:wrap;gap:.6rem">
+    <span class="tag ok">✅ built &amp; installed 2026-11-11</span>
+    <span class="tag warn">PR open, not merged: <a href="https://github.com/jpanasuk-netizen/termy-x/pull/2" target="_blank" rel="noopener">termy-x #2</a></span>
+   </div>
+   <div class="next"><b>RULE</b> 🔒 Nothing posts until you press Send.</div>
+  </div>
+  <div>
+   <div class="desk" role="img" aria-label="Illustration of the Termy XL layout: dock, book page of gold take cards, and pop-out editor">
+    <div class="dock"><i class="on">XL</i><i>🔥</i><i>🎯</i><i>🧾</i><i>🔇</i><i>⌘</i></div>
+    <div class="page">
+     <div class="top"><div class="subj">📖 Subject · one per page</div><div class="heat">HEAT <span class="m"></span></div></div>
+     <div class="takes">
+      <div class="take"><span class="who">TAKE</span><span class="ln"></span><span class="ln"></span><span class="ln s"></span></div>
+      <div class="take"><span class="who">TAKE</span><span class="ln"></span><span class="ln s"></span><span class="ln"></span><span class="ln xs"></span></div>
+      <div class="take"><span class="who">TAKE</span><span class="ln"></span><span class="ln xs"></span></div>
+      <div class="take"><span class="who">TAKE</span><span class="ln s"></span><span class="ln"></span><span class="ln xs"></span></div>
+     </div>
+     <div class="editor">
+      <b>Pop-out editor</b>
+      <div class="dial"><span>calm</span><span>TONE</span><span>spicy</span></div><div class="track"></div>
+      <div class="vars"><span>A</span><span class="on">B</span><span>C</span></div>
+      <div class="foot"><span>— / 280</span><span class="send">Send</span></div>
+     </div>
+     <div class="flip"></div>
+    </div>
+   </div>
+   <div class="caption">Layout illustration (CSS), not a screenshot</div>
+  </div>
+ </div>
+</section>
+
+<!-- 7 CONNECT -->
+<section class="slide" id="s7" data-title="CONNECT">
+ <div class="wrap">
+  <div class="kicker">05 · CONNECT</div>
+  <div class="split" style="grid-template-columns:auto 1fr;gap:4rem">
+   <div><div class="price grad">$99</div><div class="mono" style="color:var(--mute);letter-spacing:.2em">ONE-TIME SETUP</div></div>
+   <div>
+    <h2>Pick your path. <span class="gold">We wire it in.</span></h2>
+    <p class="lede">The house, opened up to everyone. A pick-your-path page compares 12 AI agent options side by side, each with vendor prices sourced to the vendor's own pages. You keep the gate on send, spend and public.
+     <br><a href="https://jpanasuk-netizen.github.io/the-closer/CONNECT_YOUR_LIFE.html" target="_blank" rel="noopener">Open the CONNECT page →</a></p>
+   </div>
+  </div>
+  <div class="paths">
+   <div><small>01</small>Hermes</div><div><small>02</small>Muse</div><div><small>03</small>Grok Bot</div><div><small>04</small>Self-hosted</div>
+   <div><small>05</small>OpenClaw</div><div><small>06</small>Gemini</div><div><small>07</small>AutoClaw</div><div><small>08</small>Xiaomi MiMo</div>
+   <div><small>09</small>OpenAI</div><div><small>10</small>FreeBuff</div><div><small>11</small>Abacus.AI</div><div><small>12</small>Claude</div>
+  </div>
+  <div class="next"><b>NEXT</b> 📑 Companion pages</div>
+ </div>
+</section>
+
+<!-- 8 CONTENT -->
+<section class="slide" id="s8" data-title="Content engine">
+ <div class="wrap">
+  <div class="kicker">06 · Content engine</div>
+  <h2>Two channels. <span class="gold">A studio that never sleeps.</span></h2>
+  <p class="lede">Long-form, Shorts and Instagram go out on scheduled checks, with an agent watching each lane and Jeremy gating what goes public.</p>
+  <div class="film" aria-label="Frames from a house-made promo video">
+   <img src="assets/img/film-2.jpg" alt=""><img src="assets/img/film-7.jpg" alt=""><img src="assets/img/film-12.jpg" alt=""><img src="assets/img/film-17.jpg" alt=""><img src="assets/img/film-22.jpg" alt=""><img src="assets/img/film-27.jpg" alt="">
+  </div>
+  <div class="caption" style="text-align:left">Frames from a house-made promo video (generator-sizer, Sep 2026)</div>
+  <div class="g3" style="margin-top:1.2rem">
+   <div class="card goldc"><h3>🏭 The Machine Room</h3><p>YouTube channel, produced through the Muse lane.</p><div class="links"><a href="https://www.youtube.com/@themachineroomtoday" target="_blank" rel="noopener">@themachineroomtoday</a></div></div>
+   <div class="card goldc"><h3>🛡️ Ret Paladin</h3><p>YouTube channel.</p><div class="links"><a href="https://www.youtube.com/@3jsa7" target="_blank" rel="noopener">@3jsa7</a></div></div>
+   <div class="card"><h3>📱 Shorts + Instagram</h3><p>Cut-downs on scheduled checks. AutoSocial queue parked for now.</p></div>
+  </div>
+  <div class="next"><b>NEXT</b> 🎞️ Restart video renders</div>
+ </div>
+</section>
+
+<!-- 9 QUANT -->
+<section class="slide" id="s9" data-title="Quant & trading lab">
+ <div class="wrap">
+  <div class="kicker">07 · Quant &amp; trading lab</div>
+  <h2>The lab where every edge <span class="gold">has to earn its way.</span></h2>
+  <p class="lede">Signals, gates and backtests. Paper first, always. It's a research lab, not a promise of returns.</p>
+  <div class="quant">
+   <div class="g3 tight">
+    <div class="card goldc"><h3>🎯 Kalshi 15-minute desk</h3><p>FreeBuff Kalshi runs the KXBTC15M lead under hard rules: TypeSafe judge only, skip when the chosen side is under 0.70, skip when the buy price is over 0.80.</p><div class="links"><a href="https://kalshi.solar-sizer.com/" target="_blank" rel="noopener">Jasper's Trade Bot · live page</a><a href="https://github.com/jpanasuk-netizen/kalshi-15m-desk" target="_blank" rel="noopener">kalshi-15m-desk</a></div></div>
+    <div class="card"><h3>✅❌ BTC 15m paper right/wrong</h3><p>Every call scored on paper before anything moves.</p></div>
+    <div class="card"><h3>🪂 Dump-hedge watch</h3><p>Paper watcher for 15m BTC/ETH dumps. Public API only, places no orders.</p></div>
+    <div class="card"><h3>📡 BTCC signals</h3><p>Coinbase, Kraken and Kalshi feeds.</p></div>
+    <div class="card"><h3>🕐 Hour-of-day backtest</h3><p>DaviddTech hour-of-day study.</p></div>
+    <div class="card"><h3>⚖️ Ultimate-Quant</h3><p>Paper-only multi-agent trading lab: agents debate a ticker at a roundtable, a judge calls the verdict.</p></div>
+   </div>
+   <div class="qimgs">
+    <figure class="frame"><img src="assets/img/kalshi-gates.jpg" alt="Trade gates panel from the Kalshi desk page"><figcaption>Trade gates · live page</figcaption></figure>
+   </div>
+  </div>
+  <div class="next"><b>NEXT</b> 📈 The ultimate quant site</div>
+ </div>
+</section>
+
+<!-- 10 TRENCHNET + KRAKENFLOW -->
+<section class="slide" id="s10" data-title="TRENCHNET & KrakenFlow">
+ <div class="wrap">
+  <div class="kicker">08 · Market radar</div>
+  <h2>Eyes on the market. <span class="grad">Hands off the trigger.</span></h2>
+  <div class="g2">
+   <div class="card goldc">
+    <h3>🕸️ TRENCHNET</h3>
+    <p>A watch-only Solana pump.fun wallet tracker: a wallet-to-token graph, situation reports and a paper-trading dashboard. LIVE is disarmed by default. It's becoming a full map of who's moving, before the crowd sees it.</p>
+    <figure class="frame" style="margin-top:1rem"><img src="assets/img/trenchnet-graph.jpg" alt="TRENCHNET wallet-to-token graph screenshot"><figcaption>Wallet → token graph · watch only</figcaption></figure>
+    <div class="links"><a href="https://github.com/jpanasuk-netizen/trenchnet" target="_blank" rel="noopener">github.com/jpanasuk-netizen/trenchnet</a></div>
+   </div>
+   <div class="card goldc">
+    <h3>🌊 KrakenFlow</h3>
+    <p>A single-file order-flow dashboard for people who trade long. It streams Kraken's public order book and trades into plain English: who's defending, who's stacking, and whether the walls are real. Read-only, never places orders.</p>
+    <figure class="frame" style="margin-top:1rem"><img src="assets/img/krakenflow-walls.jpg" alt="KrakenFlow walls panel screenshot"><figcaption>Walls panel · read-only</figcaption></figure>
+    <div class="links"><a href="https://github.com/jpanasuk-netizen/kraken-flow" target="_blank" rel="noopener">github.com/jpanasuk-netizen/kraken-flow</a></div>
+   </div>
+  </div>
+  <div class="next"><b>HEADING</b> 🛰️ Radar feeds for the super-desk</div>
+ </div>
+</section>
+
+<!-- 11 TOOLS -->
+<section class="slide" id="s11" data-title="Tools & sites">
+ <div class="wrap">
+  <div class="kicker">09 · Tools &amp; sites</div>
+  <h2>Free tools, <span class="gold">real sources.</span></h2>
+  <p class="lede">Eight free sizer sites where every figure cites its source, a company site, a book series in the works, and public Spaces on Hugging Face.</p>
+  <div class="g4">
+   <div class="card"><h3>☀️⚡🔋 Power sizers</h3><p>Solar, generator and battery bank calculators.</p><div class="links"><a href="https://solar-sizer.com/" target="_blank" rel="noopener">solar-sizer.com</a><a href="https://generator-sizer.com/" target="_blank" rel="noopener">generator-sizer.com</a><a href="https://battery-bank-sizer.com/" target="_blank" rel="noopener">battery-bank-sizer.com</a></div></div>
+   <div class="card"><h3>🧮 Five more calculators</h3><p>HVAC load, welding, trailer towing, chicken coop, aquarium stocking.</p><div class="links"><a href="https://jpanasuk-netizen.github.io/hvacloadcalc/" target="_blank" rel="noopener">HVAC</a><a href="https://jpanasuk-netizen.github.io/trailertowcalc/" target="_blank" rel="noopener">Towing</a><a href="https://jpanasuk-netizen.github.io/chickencoopcalc/" target="_blank" rel="noopener">Coop</a><a href="https://jpanasuk-netizen.github.io/aquariumstocking/" target="_blank" rel="noopener">Aquarium</a></div></div>
+   <div class="card"><h3>📼 Q Streaming LLC</h3><p>Media, free calculators, books and software from New Auburn, WI.</p><div class="links"><a href="https://qstreamingllc.com/" target="_blank" rel="noopener">qstreamingllc.com</a></div></div>
+   <div class="card"><h3>🤗 Hugging Face</h3><p>Static Spaces, including Eve's hunt board.</p><div class="links"><a href="https://huggingface.co/jpanasuk" target="_blank" rel="noopener">huggingface.co/jpanasuk</a></div></div>
+  </div>
+  <div class="next"><b>NEXT</b> 🔎 SEO</div>
+ </div>
+</section>
+
+<!-- 12 FREE INFERENCE -->
+<section class="slide" id="s12" data-title="Free-inference stack">
+ <div class="wrap">
+  <div class="kicker">10 · Free-inference stack</div>
+  <h2>The goal: <span class="grad">$0 burn.</span></h2>
+  <p class="lede">Intelligence shouldn't be a luxury. Route work through free models and free paths first, and pay only when nothing free can do the job.</p>
+  <div class="g3">
+   <div class="card goldc"><div class="big-emoji">🆓</div><h3>FreeModels / FCM</h3><p>free-coding-models (FCM) pings and ranks free models live, with Hermes wiring.</p></div>
+   <div class="card goldc"><div class="big-emoji">🔌</div><h3>VyceAPI</h3><p>A model API lane wired into the house config.</p></div>
+   <div class="card goldc"><div class="big-emoji">🖥️</div><h3>OpenCLI</h3><p>Uses your own logged-in session, so Termy X doesn't need a paid X API.</p></div>
+  </div>
+  <div class="next"><b>HEADING</b> 🌍 AI that anyone can afford to run</div>
+ </div>
+</section>
+
+<!-- 13 EVERYTHING -->
+<section class="slide" id="s13" data-title="Everything we've built">
+ <div class="wrap">
+  <div class="kicker">11 · Everything we've built</div>
+  <h2>The whole forge, <span class="grad">at a glance.</span></h2>
+  <div class="inv">
+   <div><b>🌋 Molten Lava</b><span>WoW Holy Power addon, magenta → gold</span><i class="st ok">shipped</i></div>
+   <div><b>🏠 Grok Bot house</b><span>~20 agents, one job each</span><i class="st ok">running</i></div>
+   <div><b>🪽 Hermes stack</b><span>Agent stack on WSL</span><i class="st ok">running</i></div>
+   <div><b>🧠 Connecture</b><span>Agent bus + vault + control room</span><i class="st ok">running</i></div>
+   <div><b>🖥️ Termy X</b><span>Native X desktop client</span><i class="st ok">public repo</i></div>
+   <div><b>🟨 Termy XL</b><span>Rust/GPU trends desk</span><i class="st warn">PR open</i></div>
+   <div><b>🐦 Blue Jay</b><span>Local X growth lab (was SupaBird)</span><i class="st">in progress</i></div>
+   <div><b>🗃️ HouseX</b><span>Agent surface inside Blue Jay</span><i class="st off">retired</i></div>
+   <div><b>🔗 CONNECT</b><span>$99 pick-your-path setup</span><i class="st ok">live page</i></div>
+   <div><b>🏭 The Machine Room</b><span>YouTube, Muse lane</span><i class="st warn">renders paused</i></div>
+   <div><b>🛡️ Ret Paladin</b><span>YouTube @3jsa7</span><i class="st ok">live</i></div>
+   <div><b>📱 AutoSocial</b><span>Instagram / Shorts queue</span><i class="st off">parked</i></div>
+   <div><b>🎯 Kalshi 15m desk</b><span>KXBTC15M lead, TypeSafe gates</span><i class="st warn">gated</i></div>
+   <div><b>✅ BTC 15m paper</b><span>Right/wrong scoring</span><i class="st">paper</i></div>
+   <div><b>🪂 Dump-hedge watch</b><span>Public API, no orders</span><i class="st">paper</i></div>
+   <div><b>📡 BTCC signals</b><span>Coinbase / Kraken / Kalshi</span><i class="st ok">running</i></div>
+   <div><b>⚖️ Ultimate-Quant</b><span>Multi-agent trading lab</span><i class="st">paper</i></div>
+   <div><b>🪙 Coin Desk</b><span>Token-launch watcher</span><i class="st">paper</i></div>
+   <div><b>🕸️ TRENCHNET</b><span>Solana wallet radar</span><i class="st">watch-only</i></div>
+   <div><b>🌊 KrakenFlow</b><span>Order-flow dashboard</span><i class="st">read-only</i></div>
+   <div><b>🧮 8 sizer sites</b><span>Sourced free calculators</span><i class="st ok">live</i></div>
+   <div><b>📼 Q Streaming LLC</b><span>Company site</span><i class="st ok">live</i></div>
+   <div><b>📚 SIZE IT RIGHT!</b><span>10-book KDP series</span><i class="st">in progress</i></div>
+   <div><b>✉️ email-relay</b><span>Daily sender on GitHub Actions</span><i class="st off">paused</i></div>
+   <div><b>🗺️ House Hub</b><span>Link hub + progress timeline</span><i class="st ok">live</i></div>
+   <div><b>🧭 THE STATUS</b><span>Eve's hunt board on HF</span><i class="st ok">live</i></div>
+   <div><b>🎯 The Closer</b><span>Campaign kit + packets</span><i class="st ok">live</i></div>
+   <div><b>🌱 TapRoot</b><span>Local AI lab on WSL</span><i class="st ok">running</i></div>
+   <div><b>🆓 FCM / FreeModels</b><span>Free-model ranking</span><i class="st ok">running</i></div>
+   <div><b>🍺 Tabby Tavern stack</b><span>Containerized private AI lab</span><i class="st">in progress</i></div>
+   <div><b>📊 local_grid_suite</b><span>Local LLM telemetry toolkit</span><i class="st">in progress</i></div>
+   <div><b>🏛️ Herald-OS</b><span>Agent-native OS, Hermes as interface</span><i class="st">alpha</i></div>
+   <div><b>🎞️ SignalRoom</b><span>Trend-to-video factory</span><i class="st">in progress</i></div>
+   <div><b>💜 GoFundMe</b><span>Bridge campaign</span><i class="st ok">open</i></div>
+  </div>
+ </div>
+</section>
+
+<!-- 14 VISION -->
+<section class="slide" id="s14" data-title="Long-term vision">
+ <div class="embers soft" aria-hidden="true"></div>
+ <div class="wrap">
+  <div class="kicker">12 · Long-term vision</div>
+  <h2>Termy XL becomes <span class="grad">the one super-desk.</span></h2>
+  <p class="lede">Everything we forged flows into one gold window. Search to reply in a single motion. Every agent in the house wired in. And one human, always, on Send.</p>
+  <div class="pipe">
+   <div class="step"><div class="big-emoji">🔍</div><b>Search</b><span>find the subject</span></div><div class="arrow">→</div>
+   <div class="step"><div class="big-emoji">🃏</div><b>Take</b><span>gold cards, one per take</span></div><div class="arrow">→</div>
+   <div class="step"><div class="big-emoji">✍️</div><b>Draft</b><span>tone dial · 3 variants</span></div><div class="arrow">→</div>
+   <div class="step"><div class="big-emoji">💬</div><b>Reply</b><span>in place, in context</span></div><div class="arrow">→</div>
+   <div class="step send"><div class="big-emoji">🧑‍✈️</div><b>Send</b><span>human-in-the-loop, always</span></div>
+  </div>
+  <div class="wired">
+   <span class="tag g">🧠 Connecture bus</span><span class="tag g">🦁 Leo-Bot</span><span class="tag g">📡 BTCC</span><span class="tag g">🎯 Kalshi desk</span><span class="tag g">🕸️ TRENCHNET</span><span class="tag g">🌊 KrakenFlow</span><span class="tag g">🎬 thetubebot</span><span class="tag g">🔎 SEO</span><span class="tag g">🆓 FreeModels</span><span class="tag g">🪽 Hermes</span><span class="tag g">🌱 TapRoot</span><span class="tag g">+ the rest of the house</span>
+  </div>
+ </div>
+</section>
+
+<!-- 15 ROADMAP -->
+<section class="slide" id="s15" data-title="Roadmap">
+ <div class="wrap">
+  <div class="kicker">13 · Roadmap</div>
+  <h2>Now · Next · <span class="gold">Later</span></h2>
+  <div class="road">
+   <div class="col"><h3>Now <span>🟢</span></h3><ul>
+    <li>Termy XL: built and installed<small>PR #2 open, review and merge</small></li>
+    <li>Termy X release package</li>
+    <li>CONNECT companion pages</li>
+    <li>Restart video renders</li>
+   </ul></div>
+   <div class="col"><h3>Next <span>🟡</span></h3><ul>
+    <li>Ultimate quant site<small>paper-first</small></li>
+    <li>SEO for the sizer sites</li>
+    <li>Free-inference routing toward $0 burn</li>
+    <li>Radar feeds (TRENCHNET, KrakenFlow) into the desk</li>
+   </ul></div>
+   <div class="col"><h3>Later <span>🟠</span></h3><ul>
+    <li>Every agent wired into Termy XL over Connecture</li>
+    <li>Search → take → draft → reply in one desk</li>
+    <li>Human-in-the-loop Send, always</li>
+   </ul></div>
+  </div>
+ </div>
+</section>
+
+<!-- 16 JOIN -->
+<section class="slide lava end" id="s16" data-title="Join the build">
+ <div class="embers" aria-hidden="true"></div>
+ <div class="wrap">
+  <div class="kicker">14 · Join the build</div>
+  <h2 class="huge">The forge is hot. <span class="grad">Get in early.</span></h2>
+  <p class="lede">From molten lava to a house of agents to one gold desk. We're building a brighter future where one person with the right tools can run like a studio, and nothing goes out without a human yes. Follow along, fork a repo, or just say hi.</p>
+  <div class="linkgrid">
+   <a class="lk hot" href="https://x.com/Jasper_Black" target="_blank" rel="noopener"><span class="e">𝕏</span><div><b>Follow on X</b><span>@Jasper_Black</span></div></a>
+   <a class="lk hot" href="https://github.com/jpanasuk-netizen" target="_blank" rel="noopener"><span class="e">🐙</span><div><b>Star on GitHub</b><span>github.com/jpanasuk-netizen</span></div></a>
+   <a class="lk hot" href="https://huggingface.co/jpanasuk" target="_blank" rel="noopener"><span class="e">🤗</span><div><b>Hugging Face</b><span>huggingface.co/jpanasuk</span></div></a>
+   <a class="lk hot" href="mailto:jpanasuk@gmail.com"><span class="e">✉️</span><div><b>Email</b><span>jpanasuk@gmail.com</span></div></a>
+   <a class="lk" href="https://www.linkedin.com/in/jeremy-panasuk-267866188" target="_blank" rel="noopener"><span class="e">💼</span><div><b>LinkedIn</b><span>in/jeremy-panasuk-267866188</span></div></a>
+   <a class="lk" href="https://github.com/jpanasuk-netizen/termy-x" target="_blank" rel="noopener"><span class="e">🖥️</span><div><b>Termy X</b><span>github.com/jpanasuk-netizen/termy-x</span></div></a>
+   <a class="lk" href="https://jpanasuk-netizen.github.io/the-closer/CONNECT_YOUR_LIFE.html" target="_blank" rel="noopener"><span class="e">🔗</span><div><b>CONNECT</b><span>$99 pick-your-path setup</span></div></a>
+   <a class="lk" href="https://www.gofundme.com/f/support-jeremys-bridge-to-ssdi" target="_blank" rel="noopener"><span class="e">💜</span><div><b>Back the build</b><span>GoFundMe</span></div></a>
+  </div>
+  <footer>Jeremy Panasuk · AI Engineer · New Auburn, WI · Where we are now, where we're going · November 2026</footer>
+ </div>
+</section>
+</main>
+
+
+<script>
+(()=>{
+ const slides=[...document.querySelectorAll('.slide')], n=slides.length;
+ document.querySelectorAll('.embers').forEach(e=>{for(let k=0;k<(e.classList.contains('soft')?18:34);k++){const i=document.createElement('i');i.style.left=Math.random()*100+'%';i.style.setProperty('--dx',(Math.random()*16-8)+'vw');i.style.animationDuration=(6+Math.random()*8)+'s';i.style.animationDelay=(-Math.random()*12)+'s';const z=.6+Math.random()*1.4;i.style.width=i.style.height=(z*.35)+'rem';e.appendChild(i)}});
+ const count=document.getElementById('count'), nav=document.getElementById('nav'), prog=document.getElementById('progress');
+ let cur=0;
+ slides.forEach((s,i)=>{const b=document.createElement('button');b.title=(i+1)+' · '+(s.dataset.title||'');b.setAttribute('aria-label','Go to slide '+(i+1));b.onclick=()=>go(i);nav.appendChild(b)});
+ const dots=[...nav.children];
+ function mark(i){cur=i;count.innerHTML='<b>'+(i+1)+'</b> / '+n;dots.forEach((d,j)=>d.classList.toggle('on',j===i));prog.style.width=((i+1)/n*100)+'%';
+   if(location.hash!=='#'+(i+1))history.replaceState(null,'','#'+(i+1));}
+ function go(i){i=Math.max(0,Math.min(n-1,i));slides[i].scrollIntoView({behavior:'smooth',block:'start'});mark(i);slides[i].classList.add('seen')}
+ const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');if(e.intersectionRatio>.5)mark(slides.indexOf(e.target))}})},{threshold:[.15,.55]});
+ slides.forEach(s=>io.observe(s));
+ addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;
+   const k=e.key;
+   if(['ArrowRight','ArrowDown','PageDown',' '].includes(k)){e.preventDefault();go(cur+1)}
+   else if(['ArrowLeft','ArrowUp','PageUp'].includes(k)){e.preventDefault();go(cur-1)}
+   else if(k==='Home'){e.preventDefault();go(0)} else if(k==='End'){e.preventDefault();go(n-1)}});
+ document.getElementById('prev').onclick=()=>go(cur-1);document.getElementById('nextb').onclick=()=>go(cur+1);
+ const h=parseInt(location.hash.slice(1));if(h>=1&&h<=n){slides[h-1].scrollIntoView();mark(h-1);slides[h-1].classList.add('seen')}else mark(0);
+})();
+</script>
+</body>
+</html>
