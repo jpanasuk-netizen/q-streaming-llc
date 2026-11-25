@@ -32,7 +32,11 @@ h1{font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;font-size:clamp(
 section{padding:84px 0}.kicker{font-family:"Courier New",monospace;color:var(--teal);letter-spacing:.28em;font-weight:900;text-transform:uppercase}
 h2{font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;font-size:clamp(2.8rem,5vw,6.5rem);line-height:.9;margin:12px 0 16px;text-transform:uppercase;text-shadow:4px 4px 0 rgba(255,63,212,.55)}
 .intro{color:var(--muted);font-size:1.13rem;line-height:1.7;max-width:1050px}
+.start-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin:28px 0 64px}
+.start-grid .cabinet{min-height:220px;border-color:var(--teal);box-shadow:8px 8px 0 rgba(23,230,210,.35)}
+.start-grid .cabinet:hover{box-shadow:10px 10px 0 rgba(255,63,212,.55)}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:38px}
+#calculators{scroll-margin-top:90px}
 .cabinet{background:linear-gradient(180deg,#0a224d,#030a1e);border:3px solid var(--line);box-shadow:8px 8px 0 rgba(0,207,255,.28);display:flex;flex-direction:column;min-height:260px;transition:.18s}.cabinet:hover{transform:translateY(-7px);border-color:var(--teal);box-shadow:10px 10px 0 rgba(255,63,212,.55)}
 .cabinet .top{padding:10px 14px;font-family:"Courier New",monospace;font-weight:900;letter-spacing:.16em;font-size:.78rem;text-transform:uppercase;color:#020817;background:linear-gradient(90deg,var(--teal),var(--cyan))}.cabinet:nth-child(3n) .top{background:linear-gradient(90deg,var(--mag),var(--yellow))}.cabinet:nth-child(4n) .top{background:linear-gradient(90deg,var(--yellow),var(--teal))}
 .cabinet .in{padding:22px;display:flex;flex-direction:column;gap:12px;flex:1}.cabinet h3{margin:0;font-size:1.45rem;line-height:1.1}.cabinet p{margin:0;color:var(--muted);line-height:1.6;flex:1}
@@ -42,6 +46,7 @@ h2{font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;font-size:clamp(
 footer{padding:36px 0 54px;color:var(--muted);border-top:3px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:"Courier New",monospace}
 .reveal{opacity:0;transform:translateY(22px);transition:.7s}.reveal.on{opacity:1;transform:none}
 @media(max-width:1250px){.grid{grid-template-columns:repeat(2,1fr)}.hero,.split{grid-template-columns:1fr}.cab img{width:min(72vw,480px)}}
+@media(max-width:900px){.start-grid{grid-template-columns:1fr}}
 @media(max-width:680px){.grid{grid-template-columns:1fr}.links{display:none}h1{font-size:4.3rem}.sunset{height:110px}}
 @media(min-width:2600px){.grid{grid-template-columns:repeat(5,1fr)}body{font-size:19px}}
 </style>
@@ -62,12 +67,18 @@ footer{padding:36px 0 54px;color:var(--muted);border-top:3px solid var(--line);d
 <div class="sunset" aria-hidden="true"></div>
 <div class="marquee"><div>THE MACHINE ROOM ✦ 8 FREE CALCULATORS ✦ CONNECT ✦ SIZE IT RIGHT! ✦ TERMY-X ✦ TABBY TAVERN ✦ BLUE JAY ✦ CONNECTURE ✦ MUSEUM OF STOLEN FIRE ✦ THE MACHINE ROOM ✦ 8 FREE CALCULATORS ✦ CONNECT ✦ SIZE IT RIGHT! ✦ TERMY-X ✦ TABBY TAVERN ✦ BLUE JAY ✦ CONNECTURE ✦ MUSEUM OF STOLEN FIRE ✦&nbsp;</div></div>
 
-<section id="lab" class="reveal"><div class="kicker">THE LAB / NOW PLAYING</div><h2>Select your cabinet.</h2><p class="intro">Every ongoing project, one cabinet each. One-line description, one real door. Books and decks that are not on sale yet say so — no fake links.</p>
+<section id="lab" class="reveal"><div class="kicker">START HERE</div><h2>Start here.</h2><p class="intro">Three doors, depending on what you need. The full cabinet floor is below.</p>
+<div class="start-grid">
+<article class="cabinet"><div class="top">Door 01 • Calculators</div><div class="in"><h3>I need a number.</h3><p>Free calculators for generators, solar, batteries, welding, HVAC, chicken coops, trailers and aquariums.</p><a class="go" href="#calculators">See the calculators ▶</a></div></article>
+<article class="cabinet"><div class="top">Door 02 • Software</div><div class="in"><h3>I use X.</h3><p>Termy-X: a free, open-source terminal with X built in. It never posts until you say yes.</p><a class="go" href="https://github.com/jpanasuk-netizen/termy-x" target="_blank" rel="noopener">GitHub ▶</a></div></article>
+<article class="cabinet"><div class="top">Door 03 • Service</div><div class="in"><h3>I run a small business.</h3><p>CONNECT wires email and calendar to AI agents that draft. You keep the final say.</p><a class="go" href="https://jpanasuk-netizen.github.io/the-closer/CONNECT_YOUR_LIFE.html" target="_blank" rel="noopener">Explore CONNECT ▶</a></div></article>
+</div>
+<div class="kicker">THE LAB / NOW PLAYING</div><h2>Select your cabinet.</h2><p class="intro">Every ongoing project, one cabinet each. One-line description, one real door. Books and decks that are not on sale yet say so — no fake links.</p>
 <div class="grid">
 
 <article class="cabinet"><div class="top">Cabinet 01 • Media</div><div class="in"><h3>The Machine Room</h3><p>Plain-English breakdowns of finance, AI, and legal news — full videos and Shorts.</p><a class="go" href="https://www.youtube.com/@themachineroomtoday" target="_blank" rel="noopener">YouTube ▶</a><a class="go" href="https://www.instagram.com/the_machine_room_now/" target="_blank" rel="noopener">Instagram ▶</a></div></article>
 
-<article class="cabinet"><div class="top">Cabinet 02 • Free Tool</div><div class="in"><h3>GeneratorSizer</h3><p>Size a generator for the loads you actually need to start and run.</p><a class="go" href="https://generator-sizer.com/" target="_blank" rel="noopener">generator-sizer.com ▶</a></div></article>
+<article class="cabinet" id="calculators"><div class="top">Cabinet 02 • Free Tool</div><div class="in"><h3>GeneratorSizer</h3><p>Size a generator for the loads you actually need to start and run.</p><a class="go" href="https://generator-sizer.com/" target="_blank" rel="noopener">generator-sizer.com ▶</a></div></article>
 <article class="cabinet"><div class="top">Cabinet 03 • Free Tool</div><div class="in"><h3>SolarSizer</h3><p>Match solar panels to your real daily use and available sun.</p><a class="go" href="https://solar-sizer.com/" target="_blank" rel="noopener">solar-sizer.com ▶</a></div></article>
 <article class="cabinet"><div class="top">Cabinet 04 • Free Tool</div><div class="in"><h3>Battery Bank Sizer</h3><p>Size a battery bank with reserve, discharge limits, and runtime in mind.</p><a class="go" href="https://battery-bank-sizer.com/" target="_blank" rel="noopener">battery-bank-sizer.com ▶</a></div></article>
 <article class="cabinet"><div class="top">Cabinet 05 • Free Tool</div><div class="in"><h3>Welding Calculator</h3><p>Dial in welding numbers before you strike an arc.</p><a class="go" href="https://welding-calculator.com/" target="_blank" rel="noopener">welding-calculator.com ▶</a></div></article>
