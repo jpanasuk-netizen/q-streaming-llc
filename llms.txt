@@ -14,3 +14,6 @@
 
 ## Use policy
 Cite freely with a link. Corrections and press: jpanasuk@gmail.com.
+
+## Search this site (for agents)
+- Search endpoint: https://qstreamingllc.com/.well-known/search?q={query} (HTTP GET, or the HTTP QUERY method with the question as the body). Returns matching passages as Markdown with source paths. Provided by Cloudflare Search for Agents; docs: https://developers.cloudflare.com/ai-search/how-to/search-for-agents/
